@@ -17,10 +17,26 @@ function t202Init(){
 	var OVRAW = t202GetVar('OVRAW');
 	var OVKEY = t202GetVar('OVKEY');
 	var OVMTC = t202GetVar('OVMTC');
+<?php if (array_key_exists('c1', $_GET)): ?>
+	var c1 = <?= json_encode($_GET['c1']); ?>;
+<?php else: ?>
 	var c1 = t202GetVar('c1');
+<?php endif; ?>
+<?php if (array_key_exists('c2', $_GET)): ?>
+	var c2 = <?= json_encode($_GET['c2']); ?>;
+<?php else: ?>
 	var c2 = t202GetVar('c2');
+<?php endif; ?>
+<?php if (array_key_exists('c3', $_GET)): ?>
+	var c3 = <?= json_encode($_GET['c3']); ?>;
+<?php else: ?>
 	var c3 = t202GetVar('c3');
+<?php endif; ?>
+<?php if (array_key_exists('c4', $_GET)): ?>
+	var c4 = <?= json_encode($_GET['c4']); ?>;
+<?php else: ?>
 	var c4 = t202GetVar('c4');
+<?php endif; ?>
 	var target_passthrough = t202GetVar('target_passthrough');
 	var keyword = t202GetVar('keyword');
 	var referer = document.referrer;
