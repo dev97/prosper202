@@ -61,6 +61,7 @@ class ReportBasicForm {
 	const SORT_COST = 8;
 	const SORT_NET = 9;
 	const SORT_ROI = 10;
+	const SORT_CTR = 11;
 	
 	const REPORT_TYPE_DEFAULT = 1;
 	const REPORT_TYPE_EXPORT = 2;
@@ -75,7 +76,7 @@ class ReportBasicForm {
 
 	private static $DISPLAY_LEVEL_ARRAY = array(self::DISPLAY_LEVEL_TITLE,self::DISPLAY_LEVEL_CLICK_COUNT,self::DISPLAY_LEVEL_LEAD_COUNT,self::DISPLAY_LEVEL_SU,self::DISPLAY_LEVEL_PAYOUT,self::DISPLAY_LEVEL_EPC,self::DISPLAY_LEVEL_CPC,self::DISPLAY_LEVEL_INCOME,self::DISPLAY_LEVEL_COST,self::DISPLAY_LEVEL_NET,self::DISPLAY_LEVEL_ROI);
 	private static $DETAIL_LEVEL_ARRAY = array(self::DETAIL_LEVEL_PPC_NETWORK,self::DETAIL_LEVEL_PPC_ACCOUNT,self::DETAIL_LEVEL_AFFILIATE_NETWORK,self::DETAIL_LEVEL_CAMPAIGN,self::DETAIL_LEVEL_LANDING_PAGE,self::DETAIL_LEVEL_KEYWORD,self::DETAIL_LEVEL_TEXT_AD,self::DETAIL_LEVEL_REFERER,self::DETAIL_LEVEL_REDIRECT,self::DETAIL_LEVEL_IP,self::DETAIL_LEVEL_C1,self::DETAIL_LEVEL_C2,self::DETAIL_LEVEL_C3,self::DETAIL_LEVEL_C4);
-	private static $SORT_LEVEL_ARRAY = array(self::SORT_NAME,self::SORT_CLICK,self::SORT_LEAD,self::SORT_SU,self::SORT_PAYOUT,self::SORT_EPC,self::SORT_CPC,self::SORT_INCOME,self::SORT_COST,self::SORT_NET,self::SORT_ROI);
+	private static $SORT_LEVEL_ARRAY = array(self::SORT_NAME,self::SORT_CLICK,self::SORT_LEAD,self::SORT_SU,self::SORT_PAYOUT,self::SORT_EPC,self::SORT_CPC,self::SORT_INCOME,self::SORT_COST,self::SORT_NET,self::SORT_ROI,self::SORT_CTR);
 	
 	private static $DETAIL_INTERVAL_ARRAY = array(self::DETAIL_INTERVAL_DAY,self::DETAIL_INTERVAL_WEEK,self::DETAIL_INTERVAL_MONTH);
 
@@ -1767,6 +1768,8 @@ class ReportBasicForm {
 			return "by name";
 		} else if ($arg0 == self::SORT_CLICK) {
 			return "by clicks";
+		} else if ($arg0 == self::SORT_CTR) {
+			return "by ctr";
 		} else if ($arg0 == self::SORT_LEAD) {
 			return "by leads";
 		} else if ($arg0 == self::SORT_SU) {
