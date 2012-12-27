@@ -13,6 +13,10 @@ template_top('Group Overview',NULL,NULL,NULL);   ?>
 <? display_calendar('/tracking202/ajax/group_overview.php', true, true, true, false, true, true, true, true);    ?>
 
 <script type="text/javascript">
+	function sortGroupOverview(key) {
+		loadContent('/tracking202/ajax/group_overview.php',null,key);
+		return false;
+	}
 	loadContent('/tracking202/ajax/group_overview.php',null);
 </script>
 

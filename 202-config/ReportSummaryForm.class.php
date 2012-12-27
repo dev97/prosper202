@@ -522,29 +522,29 @@ class ReportSummaryForm extends ReportBasicForm {
 		}
 		foreach($this->getDisplay() AS $display_item_key) {
 			if (ReportBasicForm::DISPLAY_LEVEL_TITLE==$display_item_key) {
-				$html_val .= "<th class=\"result_main_column_level_0\"></th>";
+				$html_val .= "<th class=\"result_main_column_level_0\"><a href=\"\" onclick=\"return sortGroupOverview('name')\">Name</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_COUNT==$display_item_key) {
-				$html_val .= "<th>Clicks</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('click')\">Clicks</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT==$display_item_key) {
 				$html_val .= "<th>Click Outs</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
-				$html_val .= "<th>Leads</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('lead')\">Leads</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
-				$html_val .= "<th>S/U</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('su')\">S/U</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_PAYOUT==$display_item_key) {
-				$html_val .= "<th>Payout</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('payout')\">Payout</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_EPC==$display_item_key) {
-				$html_val .= "<th>EPC</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('epc')\">EPC</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CPC==$display_item_key) {
-				$html_val .= "<th>CPC</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('cpc')\">CPC</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_INCOME==$display_item_key) {
-				$html_val .= "<th>Income</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('income')\">Income</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_COST==$display_item_key) {
-				$html_val .= "<th>Cost</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('cost')\">Cost</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_NET==$display_item_key) {
-				$html_val .= "<th>Net</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('net')\">Net</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_ROI==$display_item_key) {
-				$html_val .= "<th>ROI</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('roi')\">ROI</a></th>";
 			}
 		}
 		

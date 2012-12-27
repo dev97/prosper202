@@ -32,7 +32,25 @@ AUTH::require_user();
 	
 	$summary_form = new ReportSummaryForm();
 	$summary_form->setDetails(array($user_row['user_pref_group_1'],$user_row['user_pref_group_2'],$user_row['user_pref_group_3'],$user_row['user_pref_group_4']));
-	$summary_form->setDetailsSort(array(ReportBasicForm::SORT_NAME));
+	$sort_trans = array(
+		'name'   => ReportBasicForm::SORT_NAME,
+		'click'  => ReportBasicForm::SORT_CLICK,
+		'lead'   => ReportBasicForm::SORT_LEAD,
+		'su'     => ReportBasicForm::SORT_SU,
+		'payout' => ReportBasicForm::SORT_PAYOUT,
+		'epc'    => ReportBasicForm::SORT_EPC,
+		'cpc'    => ReportBasicForm::SORT_CPC,
+		'income' => ReportBasicForm::SORT_INCOME,
+		'cost'   => ReportBasicForm::SORT_COST,
+		'net'    => ReportBasicForm::SORT_NET,
+		'roi'    => ReportBasicForm::SORT_ROI
+	);
+	if (array_key_exists('order', $_POST) && array_key_exists($_POST['order'], $sort_trans)) {
+		$sort_key = $sort_trans[$_POST['order']];
+	} else {
+		$sort_key = ReportBasicForm::SORT_CLICK;
+	}
+	$summary_form->setDetailsSort(array($sort_key));
 	$summary_form->setDisplayType(array(ReportBasicForm::DISPLAY_TYPE_TABLE));
 	$summary_form->setStartTime($mysql['from']);
 	$summary_form->setEndTime($mysql['to']);
