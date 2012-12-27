@@ -1,6 +1,6 @@
 <?php
 
-function getUrl($url, $requestType = 'GET', $timeout = 30) {
+function getUrl($url, $requestType = 'GET', $timeout = 5) {
 	
 	$curl = new curl();
 	$curl->curl($url);
