@@ -75,7 +75,7 @@ class ReportSummaryForm extends ReportBasicForm {
 	 */
 	function getDisplay() {
 		if (is_null($this->display)) {
-			$this->display = array(ReportBasicForm::DISPLAY_LEVEL_TITLE,ReportBasicForm::DISPLAY_LEVEL_CLICK_COUNT,ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT,ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT,ReportBasicForm::DISPLAY_LEVEL_SU,ReportBasicForm::DISPLAY_LEVEL_PAYOUT,ReportBasicForm::DISPLAY_LEVEL_EPC,ReportBasicForm::DISPLAY_LEVEL_CPC,ReportBasicForm::DISPLAY_LEVEL_INCOME,ReportBasicForm::DISPLAY_LEVEL_COST,ReportBasicForm::DISPLAY_LEVEL_NET,ReportBasicForm::DISPLAY_LEVEL_ROI);
+                  $this->display = array(ReportBasicForm::DISPLAY_LEVEL_TITLE,ReportBasicForm::DISPLAY_LEVEL_CLICK_COUNT,ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT,ReportBasicForm::DISPLAY_LEVEL_CTR,ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT,ReportBasicForm::DISPLAY_LEVEL_SU,ReportBasicForm::DISPLAY_LEVEL_PAYOUT,ReportBasicForm::DISPLAY_LEVEL_EPC,ReportBasicForm::DISPLAY_LEVEL_CPC,ReportBasicForm::DISPLAY_LEVEL_INCOME,ReportBasicForm::DISPLAY_LEVEL_COST,ReportBasicForm::DISPLAY_LEVEL_NET,ReportBasicForm::DISPLAY_LEVEL_ROI);
 		}
 		return $this->display;
 	}
@@ -527,6 +527,8 @@ class ReportSummaryForm extends ReportBasicForm {
 				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('click')\">Clicks</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT==$display_item_key) {
 				$html_val .= "<th>Click Outs</th>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
+				$html_val .= "<th>CTR</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('lead')\">Leads</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -568,6 +570,8 @@ class ReportSummaryForm extends ReportBasicForm {
 				$html_val .= "<th>Clicks</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT==$display_item_key) {
 				$html_val .= "<th>Click Outs</th>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
+				$html_val .= "<th>CTR</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<th>Leads</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -655,6 +659,8 @@ class ReportSummaryForm extends ReportBasicForm {
 				ReportBasicForm::echoCell("Clicks");
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT==$display_item_key) {
 				ReportBasicForm::echoCell("Click Outs");
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
+				ReportBasicForm::echoCell("CTR");
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				ReportBasicForm::echoCell("Leads");
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -717,6 +723,10 @@ class ReportSummaryForm extends ReportBasicForm {
 				$html_val .= "<td>"
 					. $row->getClickOut() .
 				"</td>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
+				$html_val .= "<td>"
+					. $row->getCtr() .
+				"%</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<td>"
 					. $row->getLeads() .
@@ -794,6 +804,10 @@ class ReportSummaryForm extends ReportBasicForm {
 				$html_val .= "<td>"
 					. $row->getClickOut() .
 				"</td>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
+				$html_val .= "<td>"
+					. $row->getCtr() .
+				"%</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<td>"
 					. $row->getLeads() .
@@ -902,6 +916,8 @@ class ReportSummaryForm extends ReportBasicForm {
 				ReportBasicForm::echoCell($row->getClicks());
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT==$display_item_key) {
 				ReportBasicForm::echoCell($row->getClickOut());
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
+				ReportBasicForm::echoCell($row->getCtr());
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				ReportBasicForm::echoCell($row->getLeads());
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -2585,6 +2601,18 @@ class ReportSummaryTotalForm {
 		$this->click_out += $arg0;
 	}
 	
+	/**
+	 * Returns the ctr
+	 * @return number
+	 */
+	function getCtr() {
+		if($this->getClicks()!=0) {
+			return @round(($this->getClickOut()/$this->getClicks())*100);
+		} else {
+			return 0;
+		}
+	}
+        
 	/**
 	 * Returns the leads 
 	 * @return integer
