@@ -745,7 +745,7 @@ class ReportSummaryForm extends ReportBasicForm {
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CPC==$display_item_key) {
 				$html_val .= "<td>$"
-					. number_format($row->getCpc()*100,2) .
+					. number_format($row->getCpc(),2) .
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_INCOME==$display_item_key) {
 				$html_val .= '<td class="m-row4">$'
@@ -826,7 +826,7 @@ class ReportSummaryForm extends ReportBasicForm {
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CPC==$display_item_key) {
 				$html_val .= "<td>$"
-					. number_format($row->getCpc()*100,2) .
+					. number_format($row->getCpc(),2) .
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_INCOME==$display_item_key) {
 				$html_val .= "<td>$"
@@ -927,7 +927,7 @@ class ReportSummaryForm extends ReportBasicForm {
 			} else if (ReportBasicForm::DISPLAY_LEVEL_EPC==$display_item_key) {
 				ReportBasicForm::echoCell('$' . number_format($row->getEpc(),2));
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CPC==$display_item_key) {
-				ReportBasicForm::echoCell("$" . number_format($row->getCpc()*100,2));
+				ReportBasicForm::echoCell("$" . number_format($row->getCpc(),2));
 			} else if (ReportBasicForm::DISPLAY_LEVEL_INCOME==$display_item_key) {
 				ReportBasicForm::echoCell('$' . number_format($row->getIncome(),2));
 			} else if (ReportBasicForm::DISPLAY_LEVEL_COST==$display_item_key) {
@@ -1716,7 +1716,7 @@ class ReportSummaryTotalForm {
 	 */
 	function getCpc() {
 		if($this->getClicks()!=0) {
-			return ($this->getLeads()/$this->getClicks());
+			return ($this->getCost()/$this->getClicks());
 		} else {
 			return 0;
 		}
