@@ -2,4 +2,4 @@
 
 AUTH::require_user();
 
-header('location: /tracking202/overview/');
+header('location: /tracking202/overview/group-overview.php');
