@@ -328,10 +328,10 @@ setClickIdCookie($mysql['click_id'],$mysql['aff_campaign_id']);
 function t202initB() { 
 
 	var subid ='<? echo $click_id; ?>';
-	createCookie('tracking202subid',subid,0);
+	createCookie('tracking202subid',subid,1);
 
 	var outbound = '<? echo $outbound_site_url; ?>';
-	createCookie('tracking202outbound',outbound,0);
+	createCookie('tracking202outbound',outbound,1);
 	
 	var replaceVar = new RegExp('<? echo $old_lp_site_url; ?>',"gi");
 	var oldBody = document.body.innerHTML;
