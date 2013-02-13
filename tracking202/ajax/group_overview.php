@@ -51,7 +51,7 @@ AUTH::require_user();
 	} else {
 		$sort_key = ReportBasicForm::SORT_CLICK;
 	}
-	$summary_form->setDetailsSort(array($sort_key));
+	$summary_form->setDetailsSort(array_fill(0, 4, $sort_key));
 	$summary_form->setDisplayType(array(ReportBasicForm::DISPLAY_TYPE_TABLE));
 	$summary_form->setStartTime($mysql['from']);
 	$summary_form->setEndTime($mysql['to']);
