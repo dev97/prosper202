@@ -89,24 +89,24 @@ class AUTH {
 			$user_timezone = $_SESSION['user_timezone'];	
 		}
 		
-		if ($user_timezone == '-12') { date_default_timezone_set('NZS-12NZD'); } 
-		if ($user_timezone == '-11') { date_default_timezone_set('SST11'); }    
-		if ($user_timezone == '-10') { date_default_timezone_set('HST10HDT'); }    
-		if ($user_timezone == '-9') { date_default_timezone_set('AKS9AKD'); }    
-		if ($user_timezone == '-8') { date_default_timezone_set('PST8PDT'); }    
-		if ($user_timezone == '-7') { date_default_timezone_set('MST7MDT'); }    
-		if ($user_timezone == '-6') { date_default_timezone_set('CST6CDT'); }    
-		if ($user_timezone == '-5') { date_default_timezone_set('EST5EDT'); }      
-		if ($user_timezone == '-4') { date_default_timezone_set('AST4ADT'); }    
-		if ($user_timezone == '-3.5') { date_default_timezone_set('NST3:30NDT'); }    
-		if ($user_timezone == '-3') { date_default_timezone_set('BST3'); }    
-		if ($user_timezone == '-2') { date_default_timezone_set('FST2FDT'); }    
+		if ($user_timezone == '-12') { date_default_timezone_set('Kwajalein'); } 
+		if ($user_timezone == '-11') { date_default_timezone_set('Pacific/Midway'); }    
+		if ($user_timezone == '-10') { date_default_timezone_set('Pacific/Honolulu'); }    
+		if ($user_timezone == '-9') { date_default_timezone_set('America/Anchorage'); }    
+		if ($user_timezone == '-8') { date_default_timezone_set('America/Los_Angeles'); }    
+		if ($user_timezone == '-7') { date_default_timezone_set('America/Denver'); }    
+		if ($user_timezone == '-6') { date_default_timezone_set('America/Tegucigalpa'); }    
+		if ($user_timezone == '-5') { date_default_timezone_set('America/New_York'); }      
+		if ($user_timezone == '-4') { date_default_timezone_set('America/Halifax'); }    
+		if ($user_timezone == '-3.5') { date_default_timezone_set('America/St_Johns'); }    
+		if ($user_timezone == '-3') { date_default_timezone_set('America/Sao_Paulo'); }    
+		if ($user_timezone == '-2') { date_default_timezone_set('Atlantic/South_Georgia'); }    
 		if ($user_timezone == '0') { date_default_timezone_set('Europe/London'); }    
 		if ($user_timezone == '1') { date_default_timezone_set('Europe/Paris'); }    
 		if ($user_timezone == '2') { date_default_timezone_set('Asia/Istanbul'); }    
 		if ($user_timezone == '3') { date_default_timezone_set('Asia/Kuwait'); }     
 		if ($user_timezone == '3.5') { date_default_timezone_set('Asia/Tehran'); }    
-		if ($user_timezone == '5.5') { date_default_timezone_set('IST-5:30'); }    
+		if ($user_timezone == '5.5') { date_default_timezone_set('Asia/Kolkata'); }    
 		if ($user_timezone == '7') { date_default_timezone_set('Asia/Bangkok'); }    
 		if ($user_timezone == '8') { date_default_timezone_set('Asia/Hong_Kong'); }    
 		if ($user_timezone == '9') { date_default_timezone_set('Asia/Tokyo'); }    

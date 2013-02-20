@@ -66,7 +66,7 @@ class INSTALL {
   `user_name` varchar(50) NOT NULL,
   `user_pass` char(32) NOT NULL,
   `user_email` varchar(100) NOT NULL,
-  `user_timezone` tinyint(3) NOT NULL default '-8',
+  `user_timezone` varchar(4) NOT NULL default '-8',
   `user_time_register` int(10) unsigned NOT NULL,
   `user_pass_key` varchar(255) NOT NULL,
   `user_pass_time` int(10) unsigned NOT NULL,
