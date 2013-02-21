@@ -1,4 +1,5 @@
 <? include_once($_SERVER['DOCUMENT_ROOT'] . '/202-config/connect.php'); 
+include_once($_SERVER['DOCUMENT_ROOT'] . '/202-config/geoip.php');
 
 AUTH::require_user();
 
@@ -16,6 +17,14 @@ AUTH::require_user();
 		$query = query($command, $db_table, true, true, true, '  ORDER BY 2c.click_id DESC ', $_POST['offset'], true, true);
 	}  
 
+//geolocation
+	if (geoLocationDatabaseInstalled() == true) {
+		$GEOLOCATION_BACKEND = 'internal';
+	} else if (geoip_available() == true) {
+		$GEOLOCATION_BACKEND = 'geoip';
+	} else {
+		$GEOLOCATION_BACKEND = NULL;
+	}
 //run query
 	$click_sql = $query['click_sql'];
 	$click_result = mysql_query($click_sql) or record_mysql_error($click_sql); 
@@ -60,7 +69,7 @@ AUTH::require_user();
 				<td class="date">Date</td>
 				<td class="ppc"></td>
 				<td class="ppc"></td>
-				<? if (geoLocationDatabaseInstalled() == true) echo '<td class="flag"></td>'; ?>
+				<? if ($GEOLOCATION_BACKEND) echo '<td class="flag"></td>'; ?>
 				<td class="ppc"></td>
 				<td class="filter"></td>
 				<td class="ip">IP</td>
@@ -125,7 +134,7 @@ AUTH::require_user();
 								click_cloaking_site_url_id,
 								click_redirect_site_url_id,"; 
 		
-		if (geoLocationDatabaseInstalled() == true)  {
+		if ($GEOLOCATION_BACKEND === 'internal')  {
 			$click_sql2 .= "		location_country_name,
 								location_country_code,
 								location_region_code,
@@ -149,7 +158,7 @@ AUTH::require_user();
 										LEFT JOIN 202_keywords ON (202_keywords.keyword_id = 202_clicks_advance.keyword_id)
 										LEFT JOIN 202_browsers ON (202_browsers.browser_id = 202_clicks_advance.browser_id)
 										LEFT JOIN 202_platforms ON (202_platforms.platform_id = 202_clicks_advance.platform_id)";
-		if (geoLocationDatabaseInstalled() == true)  {
+		if ($GEOLOCATION_BACKEND === 'internal')  {
 			$click_sql2 .= "				LEFT JOIN 202_locations ON (202_ips.location_id = 202_locations.location_id)
 										LEFT JOIN 202_locations_country ON (202_locations.location_country_id = 202_locations_country.location_country_id)
 										LEFT JOIN 202_locations_city ON (202_locations.location_city_id = 202_locations_city.location_city_id) 
@@ -239,7 +248,10 @@ AUTH::require_user();
 									 
 		$ppc_network_icon = pcc_network_icon($click_row['ppc_network_name'],$click_row['ppc_account_name']); 
 		
-		if (geoLocationDatabaseInstalled() == true)  {
+		if ($GEOLOCATION_BACKEND)  {
+			if ($GEOLOCATION_BACKEND === 'geoip') {
+				add_geoip_data($click_row['ip_address'], $click_row);
+			}
 			$html['location'] = '';
 			if ($click_row['location_country_name']) {
 				if ($click_row['location_country_name']) { 
@@ -287,7 +299,7 @@ AUTH::require_user();
 				<td class="date"><? echo $html['click_time']; ?></td>
 				<td class="ppc"><? echo $html['browser_id']; ?></td>
 				<td class="ppc"><? echo $html['platform_id']; ?></td>
-				<? if (geoLocationDatabaseInstalled() == true) echo '<td class="flag">' . $html['location'] .'</td>'; ?>
+				<? if ($GEOLOCATION_BACKEND) echo '<td class="flag">' . $html['location'] .'</td>'; ?>
 				<td class="ppc"><? echo $ppc_network_icon; ?></td>
 				<td class="filter">
 					<? if ($click_row['click_filtered'] == '1') { ?>
