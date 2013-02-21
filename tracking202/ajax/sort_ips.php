@@ -349,7 +349,7 @@ while ($ip_row = mysql_fetch_array($ip_result, MYSQL_ASSOC)) {
 	error_reporting(6135); ?> 
 	
 	<tr>
-		<td class="m-row2  m-row2-fade" ><? printf('<a target="_new"  href="http://ws.arin.net/whois/?queryinput=%s">ARIN</a> / <a target="_new" href="http://www.db.ripe.net/whois?searchtext=%s">RIPE</a>',$html['ip'],$html['ip']); ?> :: <? echo $html['ip']; ?> </td>
+		<td class="m-row2  m-row2-fade" ><? printf('<a target="_new"  href="http://whatismyipaddress.com/ip/%s">WIMIP</a> / <a target="_new" href="http://www.infobyip.com/ip-%s.html">InfoByIP</a>',$html['ip'],$html['ip']); ?> :: <? echo $html['ip']; ?> </td>
 		<td class="m-row1"><? echo $html['sort_ip_clicks']; ?></td>
 		<td class="m-row1"><? echo $html['sort_ip_leads']; ?></td> 
 		<td class="m-row1"><? echo $html['sort_ip_su_ratio']; ?></td>
