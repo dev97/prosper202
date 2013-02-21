@@ -706,6 +706,7 @@ table.visitors td a {
 
 #m-content .date{
     width: 10%;
+    text-align: right;
 }
 
 #m-content .flag, #m-content .ppc, #m-content .filter, #m-content .referer, #m-content .landing, #m-content .outbound, #m-content .cloaking, #m-content .redirect{
