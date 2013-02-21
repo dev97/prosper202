@@ -3305,7 +3305,7 @@ function runBreakdown($user_pref) {
 
 function date_chart($breakdown, $date) {
 	if ($breakdown == 'hour') {
-		$date = date('m/d/y g:ia', $date);
+		$date = date('m/d/y G:i', $date);
 	} elseif ($breakdown == 'day') { 
 		$date = date('M jS', $date);      
 	} elseif ($breakdown == 'month') { 

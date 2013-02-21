@@ -221,7 +221,7 @@ AUTH::require_user();
 		  
 		
 		$html['click_id'] = htmlentities($click_row['click_id'], ENT_QUOTES, 'UTF-8');
-		$html['click_time'] = date('m/d/y g:ia',$click_row['click_time']); 
+		$html['click_time'] = date('m/d/y G:i',$click_row['click_time']); 
 		$html['aff_campaign_id'] = htmlentities($click_row['aff_campaign_id'], ENT_QUOTES, 'UTF-8');   
 		$html['landing_page_nickname'] = htmlentities($click_row['landing_page_nickname'], ENT_QUOTES, 'UTF-8');   
 		$html['ppc_account_id'] = htmlentities($click_row['ppc_account_id'], ENT_QUOTES, 'UTF-8');   

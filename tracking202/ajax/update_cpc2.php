@@ -24,10 +24,10 @@ AUTH::require_user();
 		$error['time'] = '<div class="error">Please enter in the dates from and to like this <strong>mm/dd/yyyy</strong></div>';      
 	}
 		$clean['from'] = mktime(0,0,0,$from_month,$from_day,$from_year);
-		$html['from'] = date('m/d/y g:ia', $clean['from']);  
+		$html['from'] = date('m/d/y G:i', $clean['from']);  
 	                                                                                                             
 		$clean['to'] = mktime(23,59,59,$to_month,$to_day,$to_year); 
-		$html['to'] = date('m/d/y g:ia', $clean['to']);             
+		$html['to'] = date('m/d/y G:i', $clean['to']);             
 		
 		$mysql['from'] = mysql_real_escape_string($clean['from']);
 		$mysql['to'] = mysql_real_escape_string($clean['to']);

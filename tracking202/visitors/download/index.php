@@ -190,7 +190,7 @@
 		}
 		
 	echo 	$click_row['click_id'] . "\t" . 
-			date('m/d/y g:ia',$click_row['click_time']) . "\t" . 
+			date('m/d/y G:i',$click_row['click_time']) . "\t" . 
 			$click_row['browser_name'] . "\t" . 
 			$click_row['platform_name']  . "\t" . 
 			$click_row['ppc_network_name']  . "\t" . 
