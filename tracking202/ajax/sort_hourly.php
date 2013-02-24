@@ -162,18 +162,7 @@ AUTH::require_user();
 			$stats_total['net'] = $stats_total['net'] + $breakdown_row['sort_breakdown_net']; 
 			
 			$hour = $breakdown_row['sort_breakdown_from'];
-			 if ($hour == 0) { $time = 'midnight'; } 
-			 if (( $hour > 0) and ($hour < 12)) { $time = $hour . 'am'; } 
-			 if ($hour == 12) { $time =  'noon'; }
-			 if ($hour > 12) { $time = ($hour - 12) . 'pm'; }
-			 
-			 $hour++;
-			 if ($hour == 0) { $hour = 'midnight'; } 
-			 if (( $hour > 0) and ($hour < 12)) { $hour = $hour . 'am'; } 
-			 if ($hour == 12) { $hour =  'noon'; }
-			 if ($hour > 12) { $hour = ($hour - 12) . 'pm'; }
-			 
-			 $time = $time . ' - ' . $hour;
+			$time = sprintf('%02u-%02u', $hour, $hour + 1);
 			
 			$html['sort_breakdown_time'] = htmlentities($time, ENT_QUOTES, 'UTF-8');
 			
