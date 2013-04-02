@@ -337,7 +337,9 @@ function t202initB() {
 	var oldBody = document.body.innerHTML;
 	var newBody = oldBody.replace(replaceVar,outbound); 
 	
-	document.body.innerHTML=newBody;
+	if (newBody !== oldBody) {
+		document.body.innerHTML=newBody;
+	}
 	
 }
 
