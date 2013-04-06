@@ -57,7 +57,7 @@ printf('<p><b>Inbound Javascript Landing Page Code:</b>
   
   // ------------------------------------------------------------------- 
   //
-  // Tracking202 PHP Redirection, created on ' . date('D M, Y',time()) .'
+  // Tracking202 PHP Redirection, created on ' . date('j M, Y',time()) .'
   //
   // This PHP code is to be used for the following landing page.
   // ' . $landing_page_row['landing_page_url'] . '
