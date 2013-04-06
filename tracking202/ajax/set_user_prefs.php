@@ -101,31 +101,15 @@ if (!$error) {
 	$mysql['user_pref_time_from'] = mysql_real_escape_string($clean['user_pref_time_from']);
 	$mysql['user_pref_time_to'] = mysql_real_escape_string($clean['user_pref_time_to']);
 	 
+	$terms = array();
+	foreach ($mysql as $col => $val) {
+		$terms[] = "`${col}`='${val}'";
+	}
+	$terms = implode(",
+							", $terms);
+
 	$user_sql = "   UPDATE  `202_users_pref`
-					SET     `user_pref_adv`='".$mysql['user_pref_adv']."',
-							`user_pref_ppc_network_id`='".$mysql['user_pref_ppc_network_id']."',
-							`user_pref_ppc_account_id`='".$mysql['user_pref_ppc_account_id']."',
-							`user_pref_aff_network_id`='".$mysql['user_pref_aff_network_id']."',
-							`user_pref_aff_campaign_id`='".$mysql['user_pref_aff_campaign_id']."',
-							`user_pref_text_ad_id`='".$mysql['user_pref_text_ad_id']."',
-							`user_pref_method_of_promotion`='".$mysql['user_pref_method_of_promotion']."',
-							`user_pref_landing_page_id`='".$mysql['user_pref_landing_page_id']."',
-							`user_pref_country_id`='".$mysql['user_pref_country_id']."',
-							`user_pref_ip`='".$mysql['user_pref_ip']."',
-							`user_pref_referer`='".$mysql['user_pref_referer']."',
-							`user_pref_keyword`='".$mysql['user_pref_keyword']."',
-							`user_pref_limit`='".$mysql['user_pref_limit']."',
-							`user_pref_show`='".$mysql['user_pref_show']."',
-							`user_pref_breakdown`='".$mysql['user_pref_breakdown']."',
-							`user_pref_chart`='".$mysql['user_pref_chart']."',
-							`user_cpc_or_cpv`='".$mysql['user_cpc_or_cpv']."',
-							`user_pref_time_predefined`='".$mysql['user_pref_time_predefined']."',
-							`user_pref_time_from`='".$mysql['user_pref_time_from']."',
-							`user_pref_time_to`='".$mysql['user_pref_time_to']."',
-							`user_pref_group_1`='".$mysql['user_pref_group_1']."',
-							`user_pref_group_2`='".$mysql['user_pref_group_2']."',
-							`user_pref_group_3`='".$mysql['user_pref_group_3']."',
-							`user_pref_group_4`='".$mysql['user_pref_group_4']."'
+					SET     $terms
 					WHERE   `user_id`='".$mysql['user_id']."'"; 
 	$user_result = mysql_query($user_sql) or record_mysql_error($user_sql);    
 }
