@@ -73,20 +73,20 @@ AUTH::require_user();
 			
 			//for each real campaign selected, display the code to be used for it
 			$outbound_php = '<?php
-  
-  // ------------------------------------------------------------------- 
+
+  // -------------------------------------------------------------------
   //
   // Tracking202 PHP Redirection, created on ' . date('j M, Y',time()) .'
   //
   // This PHP code is to be used for the following setup:
   // ' . $aff_campaign_row['aff_campaign_name'] . ' on ' . $landing_page_row['landing_page_url'] . '
-  //                       
+  //
   // -------------------------------------------------------------------
-  
-  $tracking202outbound = \'http://'. getTrackingDomain() .'/tracking202/redirect/off.php?acip='.$aff_campaign_row['aff_campaign_id_public'].'&pci=\'.$_COOKIE[\'tracking202pci\']; 
- 
+
+  $tracking202outbound = \'http://'. getTrackingDomain() .'/tracking202/redirect/off.php?acip='.$aff_campaign_row['aff_campaign_id_public'].'&pci=\'.$_COOKIE[\'tracking202pci\'];
+
   header(\'location: \'.$tracking202outbound);
-  
+
 ?>';
 	$html['outbound_php'] = htmlentities($outbound_php);
 	printf('<p><textarea class="code_snippet large">%s</textarea></p>', $html['outbound_php']);

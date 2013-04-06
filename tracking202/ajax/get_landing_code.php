@@ -54,24 +54,24 @@ printf('<p><b>Inbound Javascript Landing Page Code:</b>
             <p><textarea class="code_snippet">%s</textarea></p>', $html['javascript_code']);
 
 	$outbound_php = '<?php
-  
-  // ------------------------------------------------------------------- 
+
+  // -------------------------------------------------------------------
   //
   // Tracking202 PHP Redirection, created on ' . date('j M, Y',time()) .'
   //
   // This PHP code is to be used for the following landing page.
   // ' . $landing_page_row['landing_page_url'] . '
-  //                       
+  //
   // -------------------------------------------------------------------
-  
+
   if (isset($_COOKIE[\'tracking202outbound\'])) {
-	$tracking202outbound = $_COOKIE[\'tracking202outbound\'];     
+	$tracking202outbound = $_COOKIE[\'tracking202outbound\'];
   } else {
 	$tracking202outbound = \''.$html['affiliate_link'].'&pci=\'.$_COOKIE[\'tracking202pci\'];
   }
-  
+
   header(\'location: \'.$tracking202outbound);
-  
+
 ?>';
 	$html['outbound_php'] = htmlentities($outbound_php);
 	printf('<p><b>Option 1: Landing Page: Outbound PHP Redirect Code:</b>
