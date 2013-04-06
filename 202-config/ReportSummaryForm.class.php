@@ -504,6 +504,28 @@ class ReportSummaryForm extends ReportBasicForm {
 			";
 		}
 		
+		if ($user_row['user_pref_method_of_promotion']) {
+			if ($user_row['user_pref_method_of_promotion'] === 'directlink') {
+				$op = '=';
+			} elseif ($user_row['user_pref_method_of_promotion'] === 'landingpage') {
+				$op = '!=';
+			} else {
+				$op = null;
+			}
+			if ($op) {
+				$info_sql .= "
+					AND 2c.landing_page_id ${op} 0
+				";
+			}
+		}
+
+		if ($user_row['user_pref_landing_page_id']) {
+			$mysql['user_pref_landing_page_id'] = mysql_real_escape_string($user_row['user_pref_landing_page_id']);
+			$info_sql .= "
+				AND 2c.landing_page_id='".$mysql['user_pref_landing_page_id']."'
+			";
+		}
+
 		$info_sql .= $this->getGroupBy();
 		return $info_sql;
 	}
