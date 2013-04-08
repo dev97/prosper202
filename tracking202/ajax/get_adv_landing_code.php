@@ -76,7 +76,7 @@ AUTH::require_user();
 
   // -------------------------------------------------------------------
   //
-  // Tracking202 PHP Redirection, created on ' . date('j M, Y',time()) .'
+  // Tracking202 PHP Redirection, created on ' . date('M j, Y',time()) .'
   //
   // This PHP code is to be used for the following setup:
   // ' . $aff_campaign_row['aff_campaign_name'] . ' on ' . $landing_page_row['landing_page_url'] . '
