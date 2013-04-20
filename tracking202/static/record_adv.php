@@ -292,10 +292,10 @@ setClickIdCookie($mysql['click_id'],$mysql['aff_campaign_id']);
 function t202initB() { 
 
 	var subid ='<?php echo $click_id; ?>';
-	createCookie('tracking202subid',subid,1);
+	createCookie('tracking202subid',subid);
 	
 	var pci = '<?php echo $click_id_public; ?>';
-	createCookie('tracking202pci',pci,1);
+	createCookie('tracking202pci',pci);
 
 }
 
