@@ -746,9 +746,13 @@ class ReportSummaryForm extends ReportBasicForm {
 					. $row->getClickOut() .
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
-				$html_val .= "<td>"
-					. $row->getCtr() .
-				"%</td>";
+				if ($row->getClickOut() === 0 && $row->getClicks() >= 10) {
+					$possible_ctr = $row->getCtrUpperBound();
+					$html_val .= "<td title=\"&lt; ${possible_ctr}%\">";
+				} else {
+					$html_val .= "<td>";
+				}
+				$html_val .= $row->getCtr() . "%</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<td>"
 					. $row->getLeads() .
@@ -2644,6 +2648,14 @@ class ReportSummaryTotalForm {
 		} else {
 			return 0;
 		}
+	}
+
+	/**
+	 * Returns the maximum possible ctr when clicks out is zero
+	 * @return number
+	 */
+	function getCtrUpperBound() {
+		return @round((($this->getClickOut() + 1)/($this->getClicks() + 1))*100);
 	}
         
 	/**
