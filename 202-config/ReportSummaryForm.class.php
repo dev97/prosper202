@@ -32,6 +32,9 @@ class ReportSummaryForm extends ReportBasicForm {
 	 */
 	private $tabIndexArray = array();
 
+	/* Number of digits after decimal point to show for EPC and CPC */
+	private $precision;
+
 	// +-----------------------------------------------------------------------+
 	// | PUBLIC METHODS                                                        |
 	// +-----------------------------------------------------------------------+
@@ -109,6 +112,18 @@ class ReportSummaryForm extends ReportBasicForm {
 		$this->getReportData()->populate($arg0);
 	}
 	
+
+	function getPrecision() {
+		if (is_null($this->precision)) {
+			return 2;
+		}
+		return $this->precision;
+	}
+
+	function setPrecision($precision) {
+		$this->precision = $precision;
+	}
+
 	/**
 	 * Translates the detail level into a key
 	 * @return string
@@ -767,11 +782,11 @@ class ReportSummaryForm extends ReportBasicForm {
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_EPC==$display_item_key) {
 				$html_val .= "<td>$"
-					. number_format($row->getEpc(),2) .
+					. number_format($row->getEpc(), $this->getPrecision()) .
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CPC==$display_item_key) {
 				$html_val .= "<td>$"
-					. number_format($row->getCpc(),2) .
+					. number_format($row->getCpc(), $this->getPrecision()) .
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_INCOME==$display_item_key) {
 				$html_val .= '<td class="m-row4">$'
@@ -848,11 +863,11 @@ class ReportSummaryForm extends ReportBasicForm {
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_EPC==$display_item_key) {
 				$html_val .= "<td>$"
-					. number_format($row->getEpc(),2) .
+					. number_format($row->getEpc(), $this->getPrecision()) .
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CPC==$display_item_key) {
 				$html_val .= "<td>$"
-					. number_format($row->getCpc(),2) .
+					. number_format($row->getCpc(), $this->getPrecision()) .
 				"</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_INCOME==$display_item_key) {
 				$html_val .= "<td>$"
@@ -951,9 +966,9 @@ class ReportSummaryForm extends ReportBasicForm {
 			} else if (ReportBasicForm::DISPLAY_LEVEL_PAYOUT==$display_item_key) {
 				ReportBasicForm::echoCell('$' . number_format($row->getPayout(),2));
 			} else if (ReportBasicForm::DISPLAY_LEVEL_EPC==$display_item_key) {
-				ReportBasicForm::echoCell('$' . number_format($row->getEpc(),2));
+				ReportBasicForm::echoCell('$' . number_format($row->getEpc(), $this->getPrecision()));
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CPC==$display_item_key) {
-				ReportBasicForm::echoCell("$" . number_format($row->getCpc(),2));
+				ReportBasicForm::echoCell("$" . number_format($row->getCpc(), $this->getPrecision()));
 			} else if (ReportBasicForm::DISPLAY_LEVEL_INCOME==$display_item_key) {
 				ReportBasicForm::echoCell('$' . number_format($row->getIncome(),2));
 			} else if (ReportBasicForm::DISPLAY_LEVEL_COST==$display_item_key) {

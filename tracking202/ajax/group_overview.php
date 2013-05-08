@@ -55,6 +55,7 @@ AUTH::require_user();
 	$summary_form->setDisplayType(array(ReportBasicForm::DISPLAY_TYPE_TABLE));
 	$summary_form->setStartTime($mysql['from']);
 	$summary_form->setEndTime($mysql['to']);
+	$summary_form->setPrecision($cpv ? 4 : 2);
 	
 ?>
 
