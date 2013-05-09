@@ -67,7 +67,8 @@ printf('<p><b>Inbound Javascript Landing Page Code:</b>
   if (isset($_COOKIE[\'tracking202outbound\'])) {
 	$tracking202outbound = $_COOKIE[\'tracking202outbound\'];
   } else {
-	$tracking202outbound = \''.$html['affiliate_link'].'&pci=\'.$_COOKIE[\'tracking202pci\'];
+    $tracking202pci = isset($_GET[\'pci\']) ? $_GET[\'pci\'] : $_COOKIE[\'tracking202pci\'];
+	$tracking202outbound = \''.$html['affiliate_link'].'&pci=\'.$tracking202pci;
   }
 
   header(\'location: \'.$tracking202outbound);

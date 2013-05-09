@@ -83,7 +83,8 @@ AUTH::require_user();
   //
   // -------------------------------------------------------------------
 
-  $tracking202outbound = \'http://'. getTrackingDomain() .'/tracking202/redirect/off.php?acip='.$aff_campaign_row['aff_campaign_id_public'].'&pci=\'.$_COOKIE[\'tracking202pci\'];
+  $tracking202pci = isset($_GET[\'pci\']) ? $_GET[\'pci\'] : $_COOKIE[\'tracking202pci\'];
+  $tracking202outbound = \'http://'. getTrackingDomain() .'/tracking202/redirect/off.php?acip='.$aff_campaign_row['aff_campaign_id_public'].'&pci=\'.$tracking202pci;
 
   header(\'location: \'.$tracking202outbound);
 
