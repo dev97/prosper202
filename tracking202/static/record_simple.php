@@ -77,8 +77,6 @@ switch ($user_row['user_keyword_searched_or_bidded']) {
 			$keyword = mysql_real_escape_string($_GET['OVKEY']);   
 		} elseif ($_GET['t202kw']) { 
 			$keyword = mysql_real_escape_string($_GET['t202kw']);  
-		} elseif ($referer_query['p']) { 
-			$keyword = mysql_real_escape_string($referer_query['p']);
 		} elseif ($_GET['target_passthrough']) { //if this is a mediatraffic! keyword
 			$keyword = mysql_real_escape_string($_GET['target_passthrough']);   
 		} else { //if this is a zango, or more keyword
