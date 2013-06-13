@@ -44,7 +44,8 @@ AUTH::require_user();
 		'cost'   => ReportBasicForm::SORT_COST,
 		'net'    => ReportBasicForm::SORT_NET,
 		'roi'    => ReportBasicForm::SORT_ROI,
-		'ctr'    => ReportBasicForm::SORT_CTR
+		'ctr'    => ReportBasicForm::SORT_CTR,
+		'er'    => ReportBasicForm::SORT_ER
 	);
 	if (array_key_exists('order', $_POST) && array_key_exists($_POST['order'], $sort_trans)) {
 		$sort_key = $sort_trans[$_POST['order']];

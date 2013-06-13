@@ -18,7 +18,7 @@ class ReportSummaryForm extends ReportBasicForm {
 
 	private static $DISPLAY_LEVEL_ARRAY = array(ReportBasicForm::DISPLAY_LEVEL_TITLE,ReportBasicForm::DISPLAY_LEVEL_CLICK_COUNT,ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT,ReportBasicForm::DISPLAY_LEVEL_SU,ReportBasicForm::DISPLAY_LEVEL_PAYOUT,ReportBasicForm::DISPLAY_LEVEL_EPC,ReportBasicForm::DISPLAY_LEVEL_CPC,ReportBasicForm::DISPLAY_LEVEL_INCOME,ReportBasicForm::DISPLAY_LEVEL_COST,ReportBasicForm::DISPLAY_LEVEL_NET,ReportBasicForm::DISPLAY_LEVEL_ROI);
 	private static $DETAIL_LEVEL_ARRAY = array(ReportBasicForm::DETAIL_LEVEL_PPC_NETWORK,ReportBasicForm::DETAIL_LEVEL_PPC_ACCOUNT,ReportBasicForm::DETAIL_LEVEL_AFFILIATE_NETWORK,ReportBasicForm::DETAIL_LEVEL_CAMPAIGN,ReportBasicForm::DETAIL_LEVEL_LANDING_PAGE,ReportBasicForm::DETAIL_LEVEL_KEYWORD,ReportBasicForm::DETAIL_LEVEL_TEXT_AD,ReportBasicForm::DETAIL_LEVEL_REFERER,ReportBasicForm::DETAIL_LEVEL_IP,ReportBasicForm::DETAIL_LEVEL_C1,ReportBasicForm::DETAIL_LEVEL_C2,ReportBasicForm::DETAIL_LEVEL_C3,ReportBasicForm::DETAIL_LEVEL_C4);
-	private static $SORT_LEVEL_ARRAY = array(ReportBasicForm::SORT_NAME,ReportBasicForm::SORT_CLICK,ReportBasicForm::SORT_LEAD,ReportBasicForm::SORT_SU,ReportBasicForm::SORT_PAYOUT,ReportBasicForm::SORT_EPC,ReportBasicForm::SORT_CPC,ReportBasicForm::SORT_INCOME,ReportBasicForm::SORT_COST,ReportBasicForm::SORT_NET,ReportBasicForm::SORT_ROI,ReportBasicForm::SORT_CTR);
+	private static $SORT_LEVEL_ARRAY = array(ReportBasicForm::SORT_NAME,ReportBasicForm::SORT_CLICK,ReportBasicForm::SORT_LEAD,ReportBasicForm::SORT_SU,ReportBasicForm::SORT_PAYOUT,ReportBasicForm::SORT_EPC,ReportBasicForm::SORT_CPC,ReportBasicForm::SORT_INCOME,ReportBasicForm::SORT_COST,ReportBasicForm::SORT_NET,ReportBasicForm::SORT_ROI,ReportBasicForm::SORT_CTR,ReportBasicForm::SORT_ER);
 	
 	// +-----------------------------------------------------------------------+
 	// | PRIVATE VARIABLES                                                     |
@@ -570,7 +570,7 @@ class ReportSummaryForm extends ReportBasicForm {
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT==$display_item_key) {
 				$html_val .= "<th>Click Eng</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_ER==$display_item_key) {
-				$html_val .= "<th>ER</th>";
+				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('er')\">ER</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('lead')\">Leads</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -2444,6 +2444,8 @@ class ReportSummaryTotalForm {
 			usort($this->child_array,array($this,"leadSort"));
 		} else if($child_sort==ReportBasicForm::SORT_CTR) {
 			usort($this->child_array,array($this,"ctrSort"));
+		} else if($child_sort==ReportBasicForm::SORT_ER) {
+			usort($this->child_array,array($this,"engagementRateSort"));
 		} else if($child_sort==ReportBasicForm::SORT_CLICK) {
 			usort($this->child_array,array($this,"clickSort"));
 		} else {
@@ -2546,6 +2548,15 @@ class ReportSummaryTotalForm {
         	return 0;
     	}
     	return (($aCtr < $bCtr) ? 1 : -1);
+	}
+	
+	static function engagementRateSort($a,$b) {
+		$aEr = $a->getEngagementRate();
+		$bEr = $b->getEngagementRate();
+		if ($aEr == $bEr) {
+        	return 0;
+    	}
+    	return (($aEr < $bEr) ? 1 : -1);
 	}
 	
 	static function clickSort($a,$b) {

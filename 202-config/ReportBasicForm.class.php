@@ -64,6 +64,7 @@ class ReportBasicForm {
 	const SORT_NET = 9;
 	const SORT_ROI = 10;
 	const SORT_CTR = 11;
+	const SORT_ER = 12;
 	
 	const REPORT_TYPE_DEFAULT = 1;
 	const REPORT_TYPE_EXPORT = 2;
