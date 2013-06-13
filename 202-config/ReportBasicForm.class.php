@@ -49,6 +49,8 @@ class ReportBasicForm {
 	const DISPLAY_LEVEL_ROI = 12;
 	const DISPLAY_LEVEL_OPTIONS = 13;
 	const DISPLAY_LEVEL_CTR = 14;
+	const DISPLAY_LEVEL_CLICK_ENG_COUNT = 15;
+	const DISPLAY_LEVEL_ER= 16;
 	
 	const SORT_NAME = 0;
 	const SORT_CLICK = 1;

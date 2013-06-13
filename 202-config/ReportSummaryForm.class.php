@@ -78,7 +78,7 @@ class ReportSummaryForm extends ReportBasicForm {
 	 */
 	function getDisplay() {
 		if (is_null($this->display)) {
-                  $this->display = array(ReportBasicForm::DISPLAY_LEVEL_TITLE,ReportBasicForm::DISPLAY_LEVEL_CLICK_COUNT,ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT,ReportBasicForm::DISPLAY_LEVEL_CTR,ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT,ReportBasicForm::DISPLAY_LEVEL_SU,ReportBasicForm::DISPLAY_LEVEL_PAYOUT,ReportBasicForm::DISPLAY_LEVEL_EPC,ReportBasicForm::DISPLAY_LEVEL_CPC,ReportBasicForm::DISPLAY_LEVEL_INCOME,ReportBasicForm::DISPLAY_LEVEL_COST,ReportBasicForm::DISPLAY_LEVEL_NET,ReportBasicForm::DISPLAY_LEVEL_ROI);
+                  $this->display = array(ReportBasicForm::DISPLAY_LEVEL_TITLE,ReportBasicForm::DISPLAY_LEVEL_CLICK_COUNT,ReportBasicForm::DISPLAY_LEVEL_CLICK_OUT_COUNT,ReportBasicForm::DISPLAY_LEVEL_CTR,ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT,ReportBasicForm::DISPLAY_LEVEL_ER,ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT,ReportBasicForm::DISPLAY_LEVEL_SU,ReportBasicForm::DISPLAY_LEVEL_PAYOUT,ReportBasicForm::DISPLAY_LEVEL_EPC,ReportBasicForm::DISPLAY_LEVEL_CPC,ReportBasicForm::DISPLAY_LEVEL_INCOME,ReportBasicForm::DISPLAY_LEVEL_COST,ReportBasicForm::DISPLAY_LEVEL_NET,ReportBasicForm::DISPLAY_LEVEL_ROI);
 		}
 		return $this->display;
 	}
@@ -334,6 +334,7 @@ class ReportSummaryForm extends ReportBasicForm {
 		}
 		$info_sql .= "
 				COUNT(*) AS clicks,
+				SUM(2cr.click_reviewed) AS click_eng,
 				SUM(2cr.click_out) AS click_out,
 				SUM(2c.click_lead) AS leads,
 				2ac.aff_campaign_payout AS payout,
@@ -566,6 +567,10 @@ class ReportSummaryForm extends ReportBasicForm {
 				$html_val .= "<th>Click Outs</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
 				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('ctr')\">CTR</a></th>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT==$display_item_key) {
+				$html_val .= "<th>Click Eng</th>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_ER==$display_item_key) {
+				$html_val .= "<th>ER</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('lead')\">Leads</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -609,6 +614,10 @@ class ReportSummaryForm extends ReportBasicForm {
 				$html_val .= "<th>Click Outs</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
 				$html_val .= "<th>CTR</th>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT==$display_item_key) {
+				$html_val .= "<th>Click Eng</th>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_ER==$display_item_key) {
+				$html_val .= "<th>ER</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<th>Leads</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -698,6 +707,10 @@ class ReportSummaryForm extends ReportBasicForm {
 				ReportBasicForm::echoCell("Click Outs");
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
 				ReportBasicForm::echoCell("CTR");
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT==$display_item_key) {
+				ReportBasicForm::echoCell("Click Eng");
+			} else if (ReportBasicForm::DISPLAY_LEVEL_ER==$display_item_key) {
+				ReportBasicForm::echoCell("ER");
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				ReportBasicForm::echoCell("Leads");
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -768,6 +781,14 @@ class ReportSummaryForm extends ReportBasicForm {
 					$html_val .= "<td>";
 				}
 				$html_val .= $row->getCtr() . "%</td>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT==$display_item_key) {
+				$html_val .= "<td>"
+					. $row->getClickEng() .
+				"</td>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_ER==$display_item_key) {
+				$html_val .= "<td>"
+					. $row->getEngagementRate() .
+				"%</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<td>"
 					. $row->getLeads() .
@@ -848,6 +869,14 @@ class ReportSummaryForm extends ReportBasicForm {
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
 				$html_val .= "<td>"
 					. $row->getCtr() .
+				"%</td>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT==$display_item_key) {
+				$html_val .= "<td>"
+					. $row->getClickEng() .
+				"</td>";
+			} else if (ReportBasicForm::DISPLAY_LEVEL_ER==$display_item_key) {
+				$html_val .= "<td>"
+					. $row->getEngagementRate() .
 				"%</td>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<td>"
@@ -959,6 +988,10 @@ class ReportSummaryForm extends ReportBasicForm {
 				ReportBasicForm::echoCell($row->getClickOut());
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CTR==$display_item_key) {
 				ReportBasicForm::echoCell($row->getCtr());
+			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT==$display_item_key) {
+				ReportBasicForm::echoCell($row->getClickEng());
+			} else if (ReportBasicForm::DISPLAY_LEVEL_ER==$display_item_key) {
+				ReportBasicForm::echoCell($row->getEngagementRate());
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				ReportBasicForm::echoCell($row->getLeads());
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
@@ -1704,6 +1737,7 @@ class ReportSummaryTotalForm {
 	private $net;
 	private $roi;
 	private $click_out;
+	private $click_eng;
 	
 	private $detail_id;
 	private $parent_class;
@@ -2660,6 +2694,42 @@ class ReportSummaryTotalForm {
 	function getCtr() {
 		if($this->getClicks()!=0) {
 			return @round(($this->getClickOut()/$this->getClicks())*100);
+		} else {
+			return 0;
+		}
+	}
+
+	/**
+	 * Returns the click_eng
+	 * @return integer
+	 */
+	function getClickEng() {
+		if (count($this->getChildArray()) > 0) {
+			$ret_val = 0;
+			foreach ($this->getChildArray() as $child_item) {
+				$ret_val += $child_item->getClickEng();
+			}
+			return $ret_val;
+		} else {
+			return $this->click_eng;	
+		}
+	}
+	
+	/**
+	 * Sets the click_eng
+	 * @param integer
+	 */
+	function setClickEng($arg0) {
+		$this->click_eng += $arg0;
+	}
+	
+	/**
+	 * Returns the engagement rate
+	 * @return number
+	 */
+	function getEngagementRate() {
+		if($this->getClicks()!=0) {
+			return @round(($this->getClickEng()/$this->getClicks())*100);
 		} else {
 			return 0;
 		}
