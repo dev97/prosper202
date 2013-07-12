@@ -8,6 +8,9 @@ template_top('Pixel And Postback URLs');
 $unSecuredPixel = '<img height="1" width="1" border="0" style="display: none;" src="http://'. getTrackingDomain() .'/tracking202/static/gpx.php?amount=" />';
 $unSecuredPixel_2 = '<img height="1" width="1" border="0" style="display: none;" src="http://'. getTrackingDomain() .'/tracking202/static/gpx.php?amount=&cid=" />';
 
+//engagement tracking pixel
+$unSecuredPixel_eng = '<img height="1" width="1" border="0" style="display: none;" src="http://'. getTrackingDomain() .'/tracking202/static/eng.php" />';
+
 //post back urls
 $unSecuredPostBackUrl = 'http://'. getTrackingDomain() .'/tracking202/static/gpb.php?amount=&subid=';
 $unSecuredPostBackUrl_2 = 'http://'. getTrackingDomain() .'/tracking202/static/gpb.php?amount=&subid=';
@@ -24,22 +27,31 @@ $unSecuredUniversalPixel = '<iframe height="1" width="1" border="0" style="displ
 			$('pixel_type_advanced_id').hide();
 			$('advanced_pixel_type_tbody').hide();
 			$('pixel_type_universal_id').hide();
+            $('pixel_type_engagement_id').hide();
 		} else if (pixel_type == '1') {
 			$('pixel_type_simple_id').hide();
 			$('pixel_type_advanced_id').show();
 			$('advanced_pixel_type_tbody').show();
 			$('pixel_type_universal_id').hide();
+            $('pixel_type_engagement_id').hide();
 		} else if (pixel_type == '2') {
 			$('pixel_type_simple_id').hide();
 			$('pixel_type_advanced_id').hide();
 			$('advanced_pixel_type_tbody').hide();
 			$('pixel_type_universal_id').show();
-			
-		}	
+            $('pixel_type_engagement_id').hide();
+		} else if (pixel_type == '3') {
+			$('pixel_type_simple_id').hide();
+			$('pixel_type_advanced_id').hide();
+			$('advanced_pixel_type_tbody').hide();
+			$('pixel_type_universal_id').hide();
+            $('pixel_type_engagement_id').show();
+        }
 	}
 	function pixel_data_changed() {
 		var pixel_code = '<img height="1" width="1" border="0" style="display: none;" src="{0}://' + '<?php echo getTrackingDomain() ?>' + '/tracking202/static/gpx.php?amount={1}" />';
 		var pixel_code_2 = '<img height="1" width="1" border="0" style="display: none;" src="{0}://' + '<?php echo getTrackingDomain() ?>' + '/tracking202/static/gpx.php?amount={1}&cid={2}" />';
+		var pixel_code_eng = '<img height="1" width="1" border="0" style="display: none;" src="{0}://' + '<?php echo getTrackingDomain() ?>' + '/tracking202/static/eng.php" />';
 		
 		var postback_code = '{0}://' + '<?php echo getTrackingDomain() ?>' + '/tracking202/static/gpb.php?amount={1}&subid=';
 		var postback_code_2 = '{0}://' + '<?php echo getTrackingDomain() ?>' + '/tracking202/static/gpb.php?amount={1}&cid={2}&subid=';
@@ -63,6 +75,7 @@ $unSecuredUniversalPixel = '<iframe height="1" width="1" border="0" style="displ
 		
 		$('unsecure_pixel').setValue(pixel_code.gsub(/\{0\}/,http_val).gsub(/\{1\}/,amount_value));
 		$('unsecure_pixel_2').setValue(pixel_code_2.gsub(/\{0\}/,http_val).gsub(/\{1\}/,amount_value).gsub(/\{2\}/,campaign_id_value));
+		$('unsecure_pixel_eng').setValue(pixel_code_eng.gsub(/\{0\}/,http_val));
 		$('unsecure_postback').setValue(postback_code.gsub(/\{0\}/,http_val).gsub(/\{1\}/,amount_value));
 		$('unsecure_postback_2').setValue(postback_code_2.gsub(/\{0\}/,http_val).gsub(/\{1\}/,amount_value).gsub(/\{2\}/,campaign_id_value));
 		$('unsecure_universal_pixel').setValue(universal_pixel_code.gsub(/\{0\}/,http_val).gsub(/\{1\}/,amount_value));
@@ -96,7 +109,9 @@ be placed.<br />
 			<input type="radio" name="pixel_type" value="2"
 				onClick="pixel_type_select(this.value);" /> Universal Smart Pixel
 			(Tracks 202 conversions, and intelligently fires 3rd party pixels as
-			needed)</td>
+			needed)<br />
+		    <input type="radio" name="pixel_type" value="3"
+				onClick="pixel_type_select(this.value);" /> Engagement Tracking Pixel</td>
 		</tr>
 		<tr valign="top">
 			<td class="left_caption">Secure Link:</td>
@@ -195,5 +210,16 @@ be placed.<br />
 </div>
 ', $unSecuredUniversalPixel
 		);		
+
+		printf('
+<div id="pixel_type_engagement_id" style="display:none;">
+<h2>Engagement Tracking Pixel</h2>
+        Put this pixel for tracking user engagement. You can show it on second page of landing page with multiple steps to track visitors reached second page. You can show this pixel dynamically with javascript to track visitors which have interacted. You can see how many engagement events occured and engagement rate in Group Overview section (Click Eng, ER).<br/><br/>
+
+		<textarea class="code_snippet" id="unsecure_pixel_eng">%s</textarea><br/>
+
+</div>
+', $unSecuredPixel_eng
+		);
 
 		template_bottom($server_row);
