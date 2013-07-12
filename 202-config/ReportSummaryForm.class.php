@@ -570,7 +570,7 @@ class ReportSummaryForm extends ReportBasicForm {
 			} else if (ReportBasicForm::DISPLAY_LEVEL_CLICK_ENG_COUNT==$display_item_key) {
 				$html_val .= "<th>Click Eng</th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_ER==$display_item_key) {
-				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('er')\">ER</a></th>";
+				$html_val .= "<th><a href=\"\" title=\"Engagement Rate (setup pixel to track)\" onclick=\"return sortGroupOverview('er')\">ER</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_LEAD_COUNT==$display_item_key) {
 				$html_val .= "<th><a href=\"\" onclick=\"return sortGroupOverview('lead')\">Leads</a></th>";
 			} else if (ReportBasicForm::DISPLAY_LEVEL_SU==$display_item_key) {
