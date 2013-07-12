@@ -89,6 +89,8 @@ function  t202GetVar(name){
 			} else {                
 				value = get_string;                
 			}
+
+			value = decodeURIComponent(value.replace(/\+/g, '%20'));
 			
 			if(return_value == '' || value == '') {
 				return_value += value;
@@ -100,15 +102,6 @@ function  t202GetVar(name){
 		
 		while(name_index != -1)
 		
-		 //Restores all the blank spaces.
-		 space = return_value.indexOf('+');
-		 while(space != -1) { 
-			return_value = return_value.substr(0, space) + ' ' + 
-			return_value.substr(space + 1, return_value.length);
-						 
-			space = return_value.indexOf('+');
-		  }
-	  
 	 return(return_value);
 
 }
