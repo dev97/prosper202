@@ -35,6 +35,7 @@ if ($_GET['t202id']) {
 			ppc_account_id,
 			click_cpc,
 			click_cloaking,
+			hide_query_string,
 			aff_campaign_id
 		FROM
 			202_trackers
@@ -300,3 +301,5 @@ function t202initB() {
 }
 
 t202initB(); 
+
+<?php include_once($_SERVER['DOCUMENT_ROOT'] .'/tracking202/static/hide_query_string.php'); ?>

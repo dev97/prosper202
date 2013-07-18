@@ -40,7 +40,8 @@ if ($_GET['t202id']) {
 	$tracker_sql2 = "SELECT  text_ad_id,
 							ppc_account_id,
 							click_cpc,
-							click_cloaking
+							click_cloaking,
+							hide_query_string
 					FROM    202_trackers
 					WHERE   tracker_id_public='".$mysql['tracker_id_public']."'";   
 	$tracker_row2 = memcache_mysql_fetch_assoc($tracker_sql2);
@@ -345,3 +346,5 @@ function t202initB() {
 }
 
 t202initB(); 
+
+<?php include_once($_SERVER['DOCUMENT_ROOT'] .'/tracking202/static/hide_query_string.php'); ?>

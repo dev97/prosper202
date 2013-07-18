@@ -135,5 +135,8 @@ function eraseCookie(name) {
 	createCookie(name,"",-1);
 }
 
-
-t202Init();
+if (readCookie('tracking202ignore')) {
+	eraseCookie('tracking202ignore');
+} else {
+	t202Init();
+}
