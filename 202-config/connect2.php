@@ -1,6 +1,6 @@
 <?php
 
-$version = '1.7.2';
+$version = '1.7.2.1';
 
 @ini_set('auto_detect_line_endings', TRUE);
 @ini_set('register_globals', 0);

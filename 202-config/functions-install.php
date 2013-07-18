@@ -905,6 +905,7 @@ location_block_ip_to) (PARTITION p1 VALUES LESS THAN (33996344) ENGINE = MyISAM,
   `landing_page_id` mediumint(8) unsigned NOT NULL,
   `click_cpc` decimal(7,5) NOT NULL,
   `click_cloaking` tinyint(1) NOT NULL,
+  `hide_query_string` tinyint(1) NOT NULL,
   `tracker_time` int(10) unsigned NOT NULL,
   PRIMARY KEY (`tracker_id`),
   KEY `tracker_id_public` (`tracker_id_public`)

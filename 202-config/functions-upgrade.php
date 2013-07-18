@@ -575,6 +575,15 @@ $sql="ALTER TABLE `202_tracking_c4` CHANGE COLUMN `c4` `c4` VARCHAR(350) NOT NUL
 			
 					
 		}
+
+		if ($mysql_version == '1.7.2') {
+			$sql = "UPDATE 202_version SET version='1.7.2.1'; ";
+			$result = _mysql_query($sql);
+			$mysql_version = '1.7.2.1';
+
+			$sql = "ALTER TABLE `202_trackers` ADD `hide_query_string` TINYINT(1) NOT NULL AFTER  `click_cloaking`;";
+			$result = _mysql_query($sql);
+		}
 		return true;
 	}
 }

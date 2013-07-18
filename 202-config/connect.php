@@ -1,6 +1,6 @@
 <?php
 
-$version = '1.7.2';
+$version = '1.7.2.1';
 
 DEFINE('TRACKING202_API_URL', 'http://api.tracking202.com');
 DEFINE('TRACKING202_RSS_URL', 'http://rss.tracking202.com');
