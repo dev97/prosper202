@@ -331,9 +331,6 @@ function t202initB() {
 
 	var outbound = <?= json_encode($outbound_site_url) ?>;
 	createCookie('tracking202outbound',outbound);
-
-	var keyword = <?= json_encode($keyword) ?>;
-	createCookie('tracking202keyword',keyword);
 	
 	var replaceVar = new RegExp('<? echo $old_lp_site_url; ?>',"gi");
 	var oldBody = document.body.innerHTML;

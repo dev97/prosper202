@@ -295,9 +295,6 @@ function t202initB() {
 	
 	var pci = <?= json_encode($click_id_public) ?>;
 	createCookie('tracking202pci',pci);
-
-	var keyword = <?= json_encode($keyword) ?>;
-	createCookie('tracking202keyword',keyword);
 }
 
 t202initB(); 
