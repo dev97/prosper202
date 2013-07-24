@@ -58,6 +58,7 @@ AUTH::require_user();
 	$mysql['text_ad_id'] = mysql_real_escape_string($_POST['text_ad_id']); 
 	$mysql['ppc_account_id'] = mysql_real_escape_string($_POST['ppc_account_id']); 
 	$mysql['click_cloaking'] = mysql_real_escape_string($_POST['click_cloaking']); 
+	$mysql['hide_query_string'] = isset($_POST['hide_query_string']) ? 1 : 0;
 	$mysql['landing_page_id'] = mysql_real_escape_string($landing_page_row['landing_page_id']);
 	$mysql['tracker_time'] = time();
 	
@@ -69,6 +70,7 @@ AUTH::require_user();
 								`click_cpc`='".$mysql['click_cpc']."',
 								`landing_page_id`='".$mysql['landing_page_id']."',
 								`click_cloaking`='".$mysql['click_cloaking']."',
+								`hide_query_string`='".$mysql['hide_query_string']."',
 								`tracker_time`='".$mysql['tracker_time']."'";
 	$tracker_result = mysql_query($tracker_sql) or record_mysql_error($tracker_sql);
 	
