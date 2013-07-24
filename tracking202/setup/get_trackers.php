@@ -78,7 +78,7 @@ template_top($server_row,'Get Trackers',NULL,NULL,NULL);  ?>
                     </select>
                 </td>
             </tr>
-            <tr>
+            <tr id="tracker_hide_query_string" style="display:none">
                 <td class="left_caption">Hide Query String <a class="onclick_color" onclick="alert('When hide query string is in effect request is redirected to the same url with an empty query string. Keyword, c1 .. c4 are sent as POST parameters keyword, c1 .. c4 respectively and also available as cookies tracking202keyword, tracking202c1 .. tracking202c4.')">[?]</a></td>
                 <td style="white-space: nowrap;"><input type="checkbox" name="hide_query_string"></td>
             </tr>

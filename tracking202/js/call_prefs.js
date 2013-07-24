@@ -272,4 +272,8 @@ function tempLoadMethodOfPromotion(select) {
 	} else {
 		load_landing_page( 0, 0, select.value);
 	} 
+	if ($('tracker_hide_query_string')) {
+		$(tracker_hide_query_string).style.display =
+			select.value === 'landingpage' ? 'table-row' : 'none';
+	}
 }
