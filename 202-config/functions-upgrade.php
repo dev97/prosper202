@@ -584,6 +584,18 @@ $sql="ALTER TABLE `202_tracking_c4` CHANGE COLUMN `c4` `c4` VARCHAR(350) NOT NUL
 			$sql = "ALTER TABLE `202_trackers` ADD `hide_query_string` TINYINT(1) NOT NULL AFTER  `click_cloaking`;";
 			$result = _mysql_query($sql);
 		}
+		if ($mysql_version == '1.7.2.1') {
+			$sql = "UPDATE 202_version SET version='1.7.2.2'; ";
+			$result = _mysql_query($sql);
+			$mysql_version = '1.7.2.2';
+
+			$sql = "ALTER TABLE `202_sort_breakdowns`"
+				." ADD `sort_breakdown_click_throughs` mediumint(8) unsigned NOT NULL AFTER `sort_breakdown_clicks`,"
+				." ADD `sort_breakdown_ctr` decimal(10,2) NOT NULL AFTER `sort_breakdown_click_throughs`,"
+				." ADD KEY `sort_breakdown_click_throughs` (`sort_breakdown_click_throughs`),"
+				." ADD KEY `sort_breakdown_ctr` (`sort_breakdown_ctr`)";
+			$result = _mysql_query($sql);
+		}
 		return true;
 	}
 }
