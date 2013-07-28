@@ -3739,11 +3739,13 @@ function runWeekly($user_pref) {
 		$command = "
 			SELECT
 				COUNT(*) AS clicks,
+				SUM(2cr.click_out) AS click_throughs,
 				SUM(click_cpc) AS cost,
 				SUM(2c.click_lead) AS leads,
 				SUM(2c.click_payout*2c.click_lead) AS income
 			FROM
 				202_clicks AS 2c
+				LEFT JOIN 202_clicks_record AS 2cr ON 2cr.click_id = 2c.click_id
 		";
 		$db_table = "2c";
 		$pref_time = false;
@@ -3786,6 +3788,16 @@ function runWeekly($user_pref) {
 		
 		$total_clicks = $total_clicks + $click_row['clicks'];
 	
+		//click_throughs
+		$click_throughs[$day] = $click_row['click_throughs'] + $click_throughs[$day];
+
+		$total_click_throughs = $total_click_throughs + $click_row['click_throughs'];
+
+		//ctr
+		$ctr[$day] = @round($click_throughs[$day] / $clicks[$day] * 100, 2);
+
+		$total_ctr = @round($total_click_throughs / $total_clicks * 100, 2);
+
 		//avg cpc and cost    
 		$cost[$day] = $click_row['cost'] + $cost[$day]; 
 		
@@ -3841,6 +3853,8 @@ function runWeekly($user_pref) {
 		$mysql['from'] = mysql_real_escape_string($from);
 		$mysql['to'] = mysql_real_escape_string($to);
 		$mysql['clicks'] = mysql_real_escape_string($clicks[$day]);
+		$mysql['click_throughs'] = mysql_real_escape_string($click_throughs[$day]);
+		$mysql['ctr'] = mysql_real_escape_string($ctr[$day]);
 		$mysql['leads'] = mysql_real_escape_string($leads[$day]);
 		$mysql['su_ratio'] = mysql_real_escape_string($su_ratio[$day]);
 		$mysql['epc'] = mysql_real_escape_string($epc[$day]);
@@ -3858,6 +3872,8 @@ function runWeekly($user_pref) {
 				sort_breakdown_to='".$mysql['to']."',
 				user_id='".$mysql['user_id']."',
 				sort_breakdown_clicks='".$mysql['clicks']."',
+				sort_breakdown_click_throughs='".$mysql['click_throughs']."',
+				sort_breakdown_ctr='".$mysql['ctr']."',
 				sort_breakdown_leads='".$mysql['leads']."',
 				sort_breakdown_su_ratio='".$mysql['su_ratio']."',
 				sort_breakdown_payout='".$mysql['sort_breakdown_payout']."',
