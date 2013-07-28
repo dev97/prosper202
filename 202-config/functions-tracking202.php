@@ -3022,11 +3022,13 @@ function runBreakdown($user_pref) {
 		$command = "
 			SELECT
 				COUNT(*) AS clicks,
+				SUM(2cr.click_out) AS click_throughs,
 				AVG(2c.click_cpc) AS avg_cpc,
 				SUM(2c.click_lead) AS leads,
 				SUM(2c.click_payout*2c.click_lead) AS income
 			FROM
 				202_clicks AS 2c
+				LEFT JOIN 202_clicks_record AS 2cr ON 2cr.click_id = 2c.click_id
 		";
 		$db_table = "2c";
 		$pref_time = false;
@@ -3067,6 +3069,15 @@ function runBreakdown($user_pref) {
 		
 		$total_clicks = $total_clicks + $clicks;        
 	
+		//click throughs
+		$click_throughs = $click_row['click_throughs'];
+		$total_click_throughs = $total_click_throughs + $click_throughs;
+
+		//ctr
+		$ctr = @round($click_throughs / $clicks * 100, 2);
+
+		$total_ctr = @round($total_click_throughs / $total_clicks * 100, 2);
+
 		//avg cpc and cost    
 		$avg_cpc = 0;
 		$avg_cpc = $click_row['avg_cpc']; 
@@ -3120,6 +3131,8 @@ function runBreakdown($user_pref) {
 		
 		//html escape vars
 		$mysql['clicks'] = mysql_real_escape_string($clicks);
+		$mysql['click_throughs'] = mysql_real_escape_string($click_throughs);
+		$mysql['ctr'] = mysql_real_escape_string($ctr);
 		$mysql['leads'] = mysql_real_escape_string($leads);
 		$mysql['su_ratio'] = mysql_real_escape_string($su_ratio);
 		$mysql['epc'] = mysql_real_escape_string($epc);
@@ -3138,6 +3151,8 @@ function runBreakdown($user_pref) {
 				sort_breakdown_to='".$mysql['to']."',
 				user_id='".$mysql['user_id']."',
 				sort_breakdown_clicks='".$mysql['clicks']."',
+				sort_breakdown_click_throughs='".$mysql['click_throughs']."',
+				sort_breakdown_ctr='".$mysql['ctr']."',
 				sort_breakdown_leads='".$mysql['leads']."',
 				sort_breakdown_su_ratio='".$mysql['su_ratio']."',
 				sort_breakdown_payout='".$mysql['sort_breakdown_payout']."',

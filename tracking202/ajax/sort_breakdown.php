@@ -49,6 +49,24 @@ AUTH::require_user();
 		$mysql['order'] = 'ORDER BY `sort_breakdown_clicks` ASC';       
 	}
 
+	$html['sort_breakdown_click_throughs_order'] = 'sort_breakdown_click_throughs asc';
+	if ($_POST['order'] == 'sort_breakdown_click_throughs asc') {
+		$html['sort_breakdown_click_throughs_order'] = 'sort_breakdown_click_throughs desc';
+		$mysql['order'] = 'ORDER BY `sort_breakdown_click_throughs` DESC';
+	} elseif ($_POST['order'] == 'sort_breakdown_click_throughs desc') {
+		$html['sort_breakdown_click_throughs_order'] = 'sort_breakdown_click_throughs asc';
+		$mysql['order'] = 'ORDER BY `sort_breakdown_click_throughs` ASC';
+	}
+
+	$html['sort_breakdown_ctr_order'] = 'sort_breakdown_ctr asc';
+	if ($_POST['order'] == 'sort_breakdown_ctr asc') {
+		$html['sort_breakdown_ctr_order'] = 'sort_breakdown_ctr desc';
+		$mysql['order'] = 'ORDER BY `sort_breakdown_ctr` DESC';
+	} elseif ($_POST['order'] == 'sort_breakdown_ctr desc') {
+		$html['sort_breakdown_ctr_order'] = 'sort_breakdown_ctr asc';
+		$mysql['order'] = 'ORDER BY `sort_breakdown_ctr` ASC';
+	}
+
 	$html['sort_breakdown_leads_order'] = 'sort_breakdown_leads asc'; 
 	if ($_POST['order'] == 'sort_breakdown_leads asc') { 
 		$html['sort_breakdown_leads_order'] = 'sort_breakdown_leads desc';
@@ -142,6 +160,8 @@ AUTH::require_user();
 		<tr>   
 			<th><a class="onclick_color" onclick="loadContent('/tracking202/ajax/sort_breakdown.php','','<? echo $html['sort_breakdown_order']; ?>');">Time</a></th>
 			<th><a class="onclick_color" onclick="loadContent('/tracking202/ajax/sort_breakdown.php','','<? echo $html['sort_breakdown_clicks_order']; ?>');">Clicks</a></th> 
+			<th><a class="onclick_color" onclick="loadContent('/tracking202/ajax/sort_breakdown.php','','<? echo $html['sort_breakdown_click_throughs_order']; ?>');">Click Outs</a></th>
+			<th><a class="onclick_color" onclick="loadContent('/tracking202/ajax/sort_breakdown.php','','<? echo $html['sort_breakdown_ctr_order']; ?>');">CTR</a></th>
 			<th><a class="onclick_color" onclick="loadContent('/tracking202/ajax/sort_breakdown.php','','<? echo $html['sort_breakdown_leads_order']; ?>');">Leads</a></th>
 			<th><a class="onclick_color" onclick="loadContent('/tracking202/ajax/sort_breakdown.php','','<? echo $html['sort_breakdown_su_ratio_order']; ?>');">Avg S/U</a></th>
 			<th><a class="onclick_color" onclick="loadContent('/tracking202/ajax/sort_breakdown.php','','<? echo $html['sort_breakdown_payout_order']; ?>');">Avg Payout</a></th>
@@ -157,6 +177,7 @@ AUTH::require_user();
 			
 			//also harvest a total stats
 			$stats_total['clicks'] = $stats_total['clicks'] + $breakdown_row['sort_breakdown_clicks']; 
+			$stats_total['click_throughs'] = $stats_total['click_throughs'] + $breakdown_row['sort_breakdown_click_throughs']; 
 			$stats_total['leads'] = $stats_total['leads'] + $breakdown_row['sort_breakdown_leads']; 
 			$stats_total['payout'] = $stats_total['payout'] + $breakdown_row['sort_breakdown_payout']; 
 			$stats_total['income'] = $stats_total['income'] + $breakdown_row['sort_breakdown_income']; 
@@ -174,6 +195,8 @@ AUTH::require_user();
 			}
 			
 			$html['sort_breakdown_clicks'] = htmlentities($breakdown_row['sort_breakdown_clicks'], ENT_QUOTES, 'UTF-8');
+			$html['sort_breakdown_click_throughs'] = htmlentities($breakdown_row['sort_breakdown_click_throughs'], ENT_QUOTES, 'UTF-8');
+			$html['sort_breakdown_ctr'] = htmlentities($breakdown_row['sort_breakdown_ctr'].'%', ENT_QUOTES, 'UTF-8');
 			$html['sort_breakdown_leads'] = htmlentities($breakdown_row['sort_breakdown_leads'], ENT_QUOTES, 'UTF-8');
 			$html['sort_breakdown_su_ratio'] = htmlentities($breakdown_row['sort_breakdown_su_ratio'].'%', ENT_QUOTES, 'UTF-8');
 			$html['sort_breakdown_payout'] = htmlentities(dollar_format($breakdown_row['sort_breakdown_payout']), ENT_QUOTES, 'UTF-8');
@@ -187,6 +210,8 @@ AUTH::require_user();
 			<tr>
 				<td class="m-row2 m-row2-fade" ><? echo $html['sort_breakdown_time']; ?></td>
 				<td class="m-row1"><? echo $html['sort_breakdown_clicks']; ?></td>
+				<td class="m-row1"><? echo $html['sort_breakdown_click_throughs']; ?></td>
+				<td class="m-row1"><? echo $html['sort_breakdown_ctr']; ?></td>
 				<td class="m-row1"><? echo $html['sort_breakdown_leads']; ?></td> 
 				<td class="m-row1"><? echo $html['sort_breakdown_su_ratio']; ?></td>
 				<td class="m-row1"><? echo $html['sort_breakdown_payout']; ?></td> 
@@ -201,6 +226,8 @@ AUTH::require_user();
 		
 		<?  $rows = mysql_num_rows($breakdown_result);
 			$html['clicks'] = htmlentities($stats_total['clicks'], ENT_QUOTES, 'UTF-8');  
+			$html['click_throughs'] = htmlentities($stats_total['click_throughs'], ENT_QUOTES, 'UTF-8');
+			$html['ctr'] = htmlentities(round($stats_total['click_throughs'] / $stats_total['clicks'] * 100, 2) . '%', ENT_QUOTES, 'UTF-8');
 			$html['leads'] = htmlentities($stats_total['leads'], ENT_QUOTES, 'UTF-8');  
 			$html['su_ratio'] = htmlentities(round($stats_total['leads']/$stats_total['clicks']*100,2) . '%', ENT_QUOTES, 'UTF-8');     
 			$html['payout'] =  htmlentities(dollar_format(($stats_total['payout']/$rows)), ENT_QUOTES, 'UTF-8');   
@@ -216,6 +243,8 @@ AUTH::require_user();
 		<tr>
 			<td class="m-row2 m-row-bottom"><strong>Totals for report</strong></td>
 			<td class="m-row1 m-row-bottom"><strong><? echo $html['clicks']; ?></strong></td>
+			<td class="m-row1 m-row-bottom"><strong><? echo $html['click_throughs']; ?></strong></td>
+			<td class="m-row1 m-row-bottom"><strong><? echo $html['ctr']; ?></strong></td>
 			<td class="m-row1 m-row-bottom"><strong><? echo $html['leads']; ?></strong></td>
 			<td class="m-row1 m-row-bottom"><strong><? echo $html['su_ratio']; ?></strong></td>  
 			<td class="m-row1 m-row-bottom"><strong><? echo $html['payout']; ?></strong></td>   
