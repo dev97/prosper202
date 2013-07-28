@@ -3387,11 +3387,13 @@ function runHourly($user_pref) {
 		$command = "
 			SELECT
 				COUNT(*) AS clicks,
+				SUM(2cr.click_out) AS click_throughs,
 				SUM(click_cpc) AS cost,
 				SUM(2c.click_lead) AS leads,
 				SUM(2c.click_payout*2c.click_lead) AS income
 			FROM
 				202_clicks AS 2c
+				LEFT JOIN 202_clicks_record AS 2cr ON 2cr.click_id = 2c.click_id
 		";
 		$db_table = "2c";
 		$pref_time = false;
@@ -3442,6 +3444,16 @@ function runHourly($user_pref) {
 		$total_cost = $total_cost +  $click_row['cost'];
 		$total_avg_cpc = @round($total_cost/$total_clicks, 5);
 
+		// click throughs
+		$click_throughs[$hour] = $click_row['click_throughs'] + $click_throughs[$hour];
+
+		$total_click_throughs = $total_click_throughs + $click_row['click_throughs'];
+
+		// ctr
+		$ctr[$hour] = @round($click_throughs[$hour] / $clicks[$hour] * 100, 2);
+
+		$total_ctr = @round($total_click_throughs / $total_clicks * 100, 2);
+
 		//leads
 		$leads[$hour] = $click_row['leads'] + $leads[$hour];
 		
@@ -3487,6 +3499,8 @@ function runHourly($user_pref) {
 		$mysql['from'] = mysql_real_escape_string($from);
 		$mysql['to'] = mysql_real_escape_string($to);
 		$mysql['clicks'] = mysql_real_escape_string($clicks[$hour]);
+		$mysql['click_throughs'] = mysql_real_escape_string($click_throughs[$hour]);
+		$mysql['ctr'] = mysql_real_escape_string($ctr[$hour]);
 		$mysql['leads'] = mysql_real_escape_string($leads[$hour]);
 		$mysql['su_ratio'] = mysql_real_escape_string($su_ratio[$hour]);
 		$mysql['epc'] = mysql_real_escape_string($epc[$hour]);
@@ -3504,6 +3518,8 @@ function runHourly($user_pref) {
 				sort_breakdown_to='".$mysql['to']."',
 				user_id='".$mysql['user_id']."',
 				sort_breakdown_clicks='".$mysql['clicks']."',
+				sort_breakdown_click_throughs='".$mysql['click_throughs']."',
+				sort_breakdown_ctr='".$mysql['ctr']."',
 				sort_breakdown_leads='".$mysql['leads']."',
 				sort_breakdown_su_ratio='".$mysql['su_ratio']."',
 				sort_breakdown_payout='".$mysql['sort_breakdown_payout']."',
