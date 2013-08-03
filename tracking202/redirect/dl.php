@@ -156,27 +156,27 @@ switch ($user_row['user_keyword_searched_or_bidded']) {
 		}
 		break;
 }
-$keyword = str_replace('%20',' ',$keyword);      
+$keyword = urldecode($keyword);
 $keyword_id = INDEXES::get_keyword_id($keyword); 
 $mysql['keyword_id'] = mysql_real_escape_string($keyword_id); 		  
 
 $c1 = mysql_real_escape_string($_GET['c1']);
-$c1 = str_replace('%20',' ',$c1);  
+$c1 = urldecode($c1);
 $c1_id = INDEXES::get_c1_id($c1); 
 $mysql['c1_id'] = mysql_real_escape_string($c1_id);
 
 $c2 = mysql_real_escape_string($_GET['c2']);
-$c2 = str_replace('%20',' ',$c2);
+$c2 = urldecode($c2);
 $c2_id = INDEXES::get_c2_id($c2);
 $mysql['c2_id'] = mysql_real_escape_string($c2_id);
 
 $c3 = mysql_real_escape_string($_GET['c3']);
-$c3 = str_replace('%20',' ',$c3);  
+$c3 = urldecode($c3);
 $c3_id = INDEXES::get_c3_id($c3); 
 $mysql['c3_id'] = mysql_real_escape_string($c3_id);
 
 $c4 = mysql_real_escape_string($_GET['c4']);
-$c4 = str_replace('%20',' ',$c4);
+$c4 = urldecode($c4);
 $c4_id = INDEXES::get_c4_id($c4);
 $mysql['c4_id'] = mysql_real_escape_string($c4_id);
 
