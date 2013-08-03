@@ -131,6 +131,7 @@ case "202-account":
 		 	Your Prosper202 <? echo $version; ?> is up to date.
 		 <? } ?>
 		 
+		 <p>Current time: <?= date(DATE_RFC2822) ?></p>
 		 <!--<p style="margin-top: 10px;">Like our software? &nbsp; You'll love the <a href="http://revolution.tracking202.com" style="padding: 0px;">Revolution202 Partner Network</a>!</p>-->
 		 
 		 
