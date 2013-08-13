@@ -118,15 +118,12 @@ function RunSecondsCronjob() {
 
 	$everySeconds = 20;
 
-//check to run the 1minute cronjob, change this to every minute
-	$now = time();
-
-	$today_second = date('s', time());
-	$today_minute = date('i', time());
-	$today_hour = date('G', time());
-	$today_day = date('j', time());
-	$today_month = date('n', time());
-	$today_year = date('Y', time());
+	$today_second = date('s', $now);
+	$today_minute = date('i', $now);
+	$today_hour = date('G', $now);
+	$today_day = date('j', $now);
+	$today_month = date('n', $now);
+	$today_year = date('Y', $now);
 	
 	$today_second = ceil($today_second / $everySeconds);
 	if ($today_second == 0) $today_second++;
@@ -154,7 +151,8 @@ function RunSecondsCronjob() {
 		$delayed_sql = "
 			SELECT delayed_sql
 			FROM 202_delayed_sqls
-			WHERE delayed_time <=".time()."
+			WHERE delayed_time <= {$now}
+			ORDER BY delayed_time
 		";
 		$delayed_result = _mysql_query($delayed_sql);
 		while ($delayed_row = mysql_fetch_assoc($delayed_result))  {
@@ -166,7 +164,7 @@ function RunSecondsCronjob() {
 		}
 		
 		//delete all old delayed sqls
-		$delayed_sql = "DELETE FROM 202_delayed_sqls WHERE delayed_time <=".time();
+		$delayed_sql = "DELETE FROM 202_delayed_sqls WHERE delayed_time <= {$now}";
 		$delayed_result = _mysql_query($delayed_sql);
 
 		
