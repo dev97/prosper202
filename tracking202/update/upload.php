@@ -101,17 +101,19 @@ switch ($_GET['case']) {
 				$mysql['user_id'] = mysql_real_escape_string($_SESSION['user_id']);
 				$mysql['click_id'] = mysql_real_escape_string($click_id);
 				$mysql['click_payout'] = mysql_real_escape_string($click_payouts[$click_id]);
+				$mysql['click_lead'] = floatval($click_payouts[$click_id]) ? '1': '0';
 				$mysql['click_update_time'] = time();
 				$mysql['click_update_type'] = 'upload';
+				$unfilter = $mysql['click_lead'] ? "`click_filtered`='0'," : "";
 				
-				$update_sql = "UPDATE 202_clicks SET click_lead='1', `click_filtered`='0', `click_payout`='".$mysql['click_payout']."' WHERE click_id='" . $mysql['click_id'] ."' AND user_id='".$mysql['user_id']."'";
+				$update_sql = "UPDATE 202_clicks SET click_lead='".$mysql['click_lead']."', {$unfilter} `click_payout`='".$mysql['click_payout']."' WHERE click_id='" . $mysql['click_id'] ."' AND user_id='".$mysql['user_id']."'";
 				$update_result = _mysql_query($update_sql);
 		
 				$update_sql = "
 					UPDATE 202_clicks_spy
 					SET
-						click_lead='1',
-						`click_filtered`='0',
+						click_lead='".$mysql['click_lead']."',
+						{$unfilter}
 						`click_payout`='".$mysql['click_payout']."'
 					WHERE
 						click_id='" . $mysql['click_id'] ."'
@@ -141,10 +143,12 @@ switch ($_GET['case']) {
 						<th style="text-align: left;">COMMISSION</th>
 					</tr>';
 			foreach( $click_payouts as $key => $row ) {
-				printf("<tr>
-							<td style='text-align: right;'>%s</td>
-							<td style='text-align: left;'>$%s</td>
-					     </tr>", $key,  $row);
+				if (floatval($row)) {
+					printf("<tr>
+								<td style='text-align: right;'>%s</td>
+								<td style='text-align: left;'>$%s</td>
+							 </tr>", $key,  $row);
+				}
 			}  
 			echo '</table>'; 
 		template_bottom();
