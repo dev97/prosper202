@@ -230,7 +230,7 @@ $update_sql = "
 		2cs.click_payout='".$mysql['click_payout']."'
 	WHERE
 		2c.click_id='".$mysql['click_id']."' AND
-        NOT 2c.click_lead
+		NOT 2c.click_lead
 ";
 //this function delays the sql, because UPDATING is very very slow
 delay_sql($update_sql);
