@@ -66,6 +66,9 @@ function t202Init(){
 		+ "&language="				+ t202Enc(language)
 		+ "\" type=\"text/javascript\" ></script>"
 	);
+<?php if (isset($_GET['p'])): ?>
+	document.write('<!--');
+<?php endif; ?>
 		
 }
 
