@@ -36,7 +36,6 @@
 		<script type="text/javascript" src="/tracking202/js/call_prefs.js"></script>  
 		<script type="text/javascript" src="/tracking202/js/scriptaculous/scriptaculous.js"></script>
 		<script type="text/javascript" src="/tracking202/js/scal.js"></script>
-		<script type="text/javascript" src="/stats202/js/stats202.js"></script>
 		<link href="/202-css/offers202.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="/offers202/js/offers202.js"></script>
 		<link href="/202-css/offers202.css" rel="stylesheet" type="text/css"/><?
