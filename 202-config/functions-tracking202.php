@@ -459,6 +459,7 @@ function display_calendar($page, $show_time, $show_adv, $show_bottom, $show_limi
 									<td>
 										<select name="user_pref_chart" <? if ($show_breakdown == false) { echo 'style="display:none;"'; } ?>>
 											<option <? if ($user_row['user_pref_chart'] == 'profitloss') { echo 'SELECTED'; } ?> value="profitloss">Profit Loss Bar Graph</option>
+											<option <? if ($user_row['user_pref_chart'] == 'ctr') { echo 'SELECTED'; } ?> value="ctr">CTR Line Graph</option>
 											<option <? if ($user_row['user_pref_chart'] == 'clicks') { echo 'SELECTED'; } ?> value="clicks">Clicks Line Graph</option>
 											<option <? if ($user_row['user_pref_chart'] == 'leads') { echo 'SELECTED'; } ?> value="leads">Leads Line Graph</option>
 											<option <? if ($user_row['user_pref_chart'] == 'su_ratio') { echo 'SELECTED'; } ?> value="su_ratio">S/U Ratio Line Graph</option>
@@ -3260,6 +3261,7 @@ function runBreakdown($user_pref) {
 		$chart [ 'chart_data' ][ 0 ][ 0 ] = "";
 		
 		if ($pref_chart == 'clicks') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Clicks"; }
+		elseif ($pref_chart == 'ctr') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "CTR"; }
 		elseif ($pref_chart == 'leads') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Leads"; }  
 		elseif ($pref_chart == 'su_ratio') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Signup Ratio"; }   
 		elseif ($pref_chart == 'payout') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Payout"; }   
@@ -3286,6 +3288,7 @@ function runBreakdown($user_pref) {
 		  
 		   
 			if ($pref_chart == 'clicks') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_clicks");  }
+			elseif ($pref_chart == 'ctr') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_ctr");  }
 			elseif ($pref_chart == 'leads') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_leads");  }  
 			elseif ($pref_chart == 'su_ratio') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_su_ratio");  }   
 			elseif ($pref_chart == 'payout') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_payout");  }   
@@ -3606,6 +3609,7 @@ function runHourly($user_pref) {
 		$chart [ 'chart_data' ][ 0 ][ 0 ] = "";
 		
 		if ($pref_chart == 'clicks') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Clicks"; }
+		elseif ($pref_chart == 'ctr') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "CTR"; }
 		elseif ($pref_chart == 'leads') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Leads"; }  
 		elseif ($pref_chart == 'su_ratio') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Signup Ratio"; }   
 		elseif ($pref_chart == 'payout') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Payout"; }   
@@ -3633,6 +3637,7 @@ function runHourly($user_pref) {
 		  
 		   
 			if ($pref_chart == 'clicks') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_clicks");  }
+			elseif ($pref_chart == 'ctr') { $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_ctr");  }
 			elseif ($pref_chart == 'leads') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_leads");  }  
 			elseif ($pref_chart == 'su_ratio') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_su_ratio");  }   
 			elseif ($pref_chart == 'payout') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_payout");  }   
@@ -3955,6 +3960,7 @@ function runWeekly($user_pref) {
 		$chart [ 'chart_data' ][ 0 ][ 0 ] = "";
 		
 		if ($pref_chart == 'clicks') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Clicks"; }
+		elseif ($pref_chart == 'ctr') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "CTR"; }
 		elseif ($pref_chart == 'leads') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Leads"; }  
 		elseif ($pref_chart == 'su_ratio') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Signup Ratio"; }   
 		elseif ($pref_chart == 'payout') { $chart [ 'chart_data' ][ 1 ][ 0 ] = "Payout"; }   
@@ -3991,6 +3997,7 @@ function runWeekly($user_pref) {
 		  
 		   
 			if ($pref_chart == 'clicks') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_clicks");  }
+			elseif ($pref_chart == 'ctr') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_ctr");  }
 			elseif ($pref_chart == 'leads') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_leads");  }  
 			elseif ($pref_chart == 'su_ratio') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_su_ratio");  }   
 			elseif ($pref_chart == 'payout') {  $chart [ 'chart_data' ][ 1 ][ $col ] = mysql_result ( $breakdown_result, $i, "sort_breakdown_payout");  }   
