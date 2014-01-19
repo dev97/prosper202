@@ -38,6 +38,8 @@ if ($_POST['user_pref_time_predefined'] != '') {
 	switch($_POST['user_pref_time_predefined']) {
 		case 'today';
 		case 'yesterday';
+		case '2daysback':
+		case '3daysback':
 		case 'last7';
         	case 'last14';
 		case 'last30';

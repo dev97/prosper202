@@ -248,6 +248,8 @@ function display_calendar($page, $show_time, $show_adv, $show_bottom, $show_limi
 											<option value="">Custom Date</option>                                       
 											<option <? if ($time['user_pref_time_predefined'] == 'today') { echo 'selected=""'; } ?> value="today">Today</option>
 											<option <? if ($time['user_pref_time_predefined'] == 'yesterday') { echo 'selected=""'; } ?> value="yesterday">Yesterday</option>
+											<option <? if ($time['user_pref_time_predefined'] == '2daysback') { echo 'selected=""'; } ?> value="2daysback">2 Days Back</option>
+											<option <? if ($time['user_pref_time_predefined'] == '3daysback') { echo 'selected=""'; } ?> value="3daysback">3 Days Back</option>
 											<option <? if ($time['user_pref_time_predefined'] == 'last7') { echo 'selected=""'; } ?> value="last7">Last 7 Days</option>
 											<option <? if ($time['user_pref_time_predefined'] == 'last14') { echo 'selected=""'; } ?> value="last14">Last 14 Days</option>
 											<option <? if ($time['user_pref_time_predefined'] == 'last30') { echo 'selected=""'; } ?> value="last30">Last 30 Days</option>
@@ -549,6 +551,38 @@ function display_calendar($page, $show_time, $show_adv, $show_bottom, $show_limi
 				to_cal.setCurrentDate(d);
 			}
 			
+			if($('user_pref_time_predefined').options[$('user_pref_time_predefined').selectedIndex].value == '2daysback') {
+				<?  $time['from'] = mktime(0,0,0,date('m',time()-86400*2),date('d',time()-86400*2),date('Y',time()-86400*2));
+					$time['to'] = mktime(23,59,59,date('m',time()-86400*2),date('d',time()-86400*2),date('Y',time()-86400*2)); ?>
+
+				//now set the from and to dates
+				$('from').value='<? echo date('m/d/y - G:i',$time['from']); ?>';
+				$('to').value='<? echo date('m/d/y - G:i',$time['to']); ?>';
+
+				//now set the calendar dates too
+				var d = new Date(<? printf('%s, %s, %s', date('Y',$time['from']), date('n',$time['from']), date('j',$time['from'])); ?>);
+				from_cal.setCurrentDate(d);
+
+				var d = new Date(<? printf('%s, %s, %s', date('Y',$time['to']), date('n',$time['to']), date('j',$time['to'])); ?>);
+				to_cal.setCurrentDate(d);
+			}
+
+			if($('user_pref_time_predefined').options[$('user_pref_time_predefined').selectedIndex].value == '3daysback') {
+				<?  $time['from'] = mktime(0,0,0,date('m',time()-86400*3),date('d',time()-86400*3),date('Y',time()-86400*3));
+					$time['to'] = mktime(23,59,59,date('m',time()-86400*3),date('d',time()-86400*3),date('Y',time()-86400*3)); ?>
+
+				//now set the from and to dates
+				$('from').value='<? echo date('m/d/y - G:i',$time['from']); ?>';
+				$('to').value='<? echo date('m/d/y - G:i',$time['to']); ?>';
+
+				//now set the calendar dates too
+				var d = new Date(<? printf('%s, %s, %s', date('Y',$time['from']), date('n',$time['from']), date('j',$time['from'])); ?>);
+				from_cal.setCurrentDate(d);
+
+				var d = new Date(<? printf('%s, %s, %s', date('Y',$time['to']), date('n',$time['to']), date('j',$time['to'])); ?>);
+				to_cal.setCurrentDate(d);
+			}
+
 			if($('user_pref_time_predefined').options[$('user_pref_time_predefined').selectedIndex].value == 'last7') {
 				<?  $time['from'] = mktime(0,0,0,date('m',time()-86400*7),date('d',time()-86400*7),date('Y',time()-86400*7));
 					$time['to'] = mktime(23,59,59,date('m',time()),date('d',time()),date('Y',time()));  ?>
@@ -762,6 +796,16 @@ function grab_timeframe() {
 		$time['to'] = mktime(23,59,59,date('m',time()-86400),date('d',time()-86400),date('Y',time()-86400));    
 	}
 	
+	if($user_row['user_pref_time_predefined'] == '2daysback') {
+		$time['from'] = mktime(0,0,0,date('m',time()-86400*2),date('d',time()-86400*2),date('Y',time()-86400*2));
+		$time['to'] = mktime(23,59,59,date('m',time()-86400*2),date('d',time()-86400*2),date('Y',time()-86400*2));
+	}
+
+	if($user_row['user_pref_time_predefined'] == '3daysback') {
+		$time['from'] = mktime(0,0,0,date('m',time()-86400*3),date('d',time()-86400*3),date('Y',time()-86400*3));
+		$time['to'] = mktime(23,59,59,date('m',time()-86400*3),date('d',time()-86400*3),date('Y',time()-86400*3));
+	}
+
 	if($user_row['user_pref_time_predefined'] == 'last7') { 
 		$time['from'] = mktime(0,0,0,date('m',time()-86400*7),date('d',time()-86400*7),date('Y',time()-86400*7));
 		$time['to'] = mktime(23,59,59,date('m',time()),date('d',time()),date('Y',time()));    
