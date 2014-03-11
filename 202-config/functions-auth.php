@@ -95,7 +95,7 @@ class AUTH {
 		if ($user_timezone == '-9') { date_default_timezone_set('America/Anchorage'); }    
 		if ($user_timezone == '-8') { date_default_timezone_set('America/Los_Angeles'); }    
 		if ($user_timezone == '-7') { date_default_timezone_set('America/Denver'); }    
-		if ($user_timezone == '-6') { date_default_timezone_set('America/Tegucigalpa'); }    
+		if ($user_timezone == '-6') { date_default_timezone_set('America/Chicago'); }
 		if ($user_timezone == '-5') { date_default_timezone_set('America/New_York'); }      
 		if ($user_timezone == '-4') { date_default_timezone_set('America/Halifax'); }    
 		if ($user_timezone == '-3.5') { date_default_timezone_set('America/St_Johns'); }    
