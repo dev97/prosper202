@@ -298,5 +298,3 @@ function t202initB() {
 }
 
 t202initB(); 
-
-<?php include_once($_SERVER['DOCUMENT_ROOT'] .'/tracking202/static/hide_query_string.php'); ?>

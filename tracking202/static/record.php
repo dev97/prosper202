@@ -12,7 +12,11 @@ $tracker_row = memcache_mysql_fetch_assoc($tracker_sql);
 if (!$tracker_row) { die(); }
 
 if ($tracker_row['landing_page_type'] == 0) { 
-	include_once($_SERVER['DOCUMENT_ROOT'] .'/tracking202/static/record_simple.php'); die();
+	include_once($_SERVER['DOCUMENT_ROOT'] .'/tracking202/static/record_simple.php');
 } elseif ($tracker_row['landing_page_type'] == 1){
-	include_once($_SERVER['DOCUMENT_ROOT'] .'/tracking202/static/record_adv.php'); die();
+	include_once($_SERVER['DOCUMENT_ROOT'] .'/tracking202/static/record_adv.php');
+} else {
+	die();
 }
+
+include_once($_SERVER['DOCUMENT_ROOT'] .'/tracking202/static/hide_query_string.php');
