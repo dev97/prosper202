@@ -18,32 +18,32 @@ function t202Init(){
 	}
 
 	var lpip = '<? echo htmlentities($_GET['lpip']); ?>';
-	var t202id = t202GetVar('t202id');
+	var t202id = t202GetVarOrCookie('t202id');
 	var OVRAW = t202GetVar('OVRAW');
 	var OVKEY = t202GetVar('OVKEY');
 	var OVMTC = t202GetVar('OVMTC');
 <?php if (array_key_exists('c1', $_GET)): ?>
 	var c1 = <?= json_encode($_GET['c1']); ?>;
 <?php else: ?>
-	var c1 = t202GetVar('c1');
+	var c1 = t202GetVarOrCookie('c1');
 <?php endif; ?>
 <?php if (array_key_exists('c2', $_GET)): ?>
 	var c2 = <?= json_encode($_GET['c2']); ?>;
 <?php else: ?>
-	var c2 = t202GetVar('c2');
+	var c2 = t202GetVarOrCookie('c2');
 <?php endif; ?>
 <?php if (array_key_exists('c3', $_GET)): ?>
 	var c3 = <?= json_encode($_GET['c3']); ?>;
 <?php else: ?>
-	var c3 = t202GetVar('c3');
+	var c3 = t202GetVarOrCookie('c3');
 <?php endif; ?>
 <?php if (array_key_exists('c4', $_GET)): ?>
 	var c4 = <?= json_encode($_GET['c4']); ?>;
 <?php else: ?>
-	var c4 = t202GetVar('c4');
+	var c4 = t202GetVarOrCookie('c4');
 <?php endif; ?>
 	var target_passthrough = t202GetVar('target_passthrough');
-	var keyword = t202GetVar('keyword');
+	var keyword = t202GetVarOrCookie('keyword');
 	var referer = document.referrer;
 	var resolution = screen.width+'x'+screen.height;
 	var language = navigator.appName=='Netscape'?navigator.language:navigator.browserLanguage; 
@@ -109,7 +109,17 @@ function  t202GetVar(name){
 	 return(return_value);
 
 }
-	
+
+function t202GetVarOrCookie(name) {
+    var v = t202GetVar(name), c;
+
+    if (v === '' && (c = readCookie('tracking202' + name)) !== null) {
+        return c;
+    }
+
+    return v;
+}
+
 function createCookie(name,value,days) {
 	if (days) {
 		var date = new Date();
