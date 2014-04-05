@@ -24,7 +24,11 @@ if (isset($tracker_row['hide_query_string']) &&
 EOF;
     }
 ?>
-    document.body.appendChild(form);
+    if (document.body.appendChildEx) {
+      document.body.appendChildEx(form);
+    } else {
+      document.body.appendChild(form);
+    }
     form.method = 'POST';
     form.action = l.substr(0, p);
     form.submit();
