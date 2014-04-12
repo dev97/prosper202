@@ -194,6 +194,9 @@ if ($_POST['update_trackers']) {
 	if ($mysql['aff_campaign_id']) {
 		$sql .= " AND aff_campaign_id = '$mysql[aff_campaign_id]'";
 	}
+	if ($mysql['text_ad_id']) {
+		$sql .= " AND text_ad_id = '$mysql[text_ad_id]'";
+	}
 	if ($mysql['ppc_account_id']) {
 		$sql .= " AND ppc_account_id = '$mysql[ppc_account_id]'";
 	}
