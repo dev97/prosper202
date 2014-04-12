@@ -123,6 +123,10 @@ template_top('Update CPC',NULL,NULL,NULL);  ?>
 				</td>
 			</tr>
 			<tr>
+				<td class="left_caption">Update CPC for Existing Links</td>
+				<td valign="center"><input type="checkbox" name="update_trackers" value="1"></td>
+			</tr>
+			<tr>
 				<td colspan="2"><br/></td> 
 			</tr>
 		</table>

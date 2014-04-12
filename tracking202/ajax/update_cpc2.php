@@ -187,3 +187,21 @@ $result = mysql_query($sql) or record_mysql_error($sql);
 
 
 echo '<p style="text-align: center; font-weight: bold;">'.mysql_affected_rows() . ' clicks updated.</p>';
+
+if ($_POST['update_trackers']) {
+	$sql = "UPDATE 202_trackers SET click_cpc ='$mysql[click_cpc]' WHERE user_id='$mysql[user_id]'";
+
+	if ($mysql['aff_campaign_id']) {
+		$sql .= " AND aff_campaign_id = '$mysql[aff_campaign_id]'";
+	}
+	if ($mysql['ppc_account_id']) {
+		$sql .= " AND ppc_account_id = '$mysql[ppc_account_id]'";
+	}
+	if ($mysql['landing_page_id']) {
+		$sql .= " AND landing_page_id = '$mysql[landing_page_id]'";
+	}
+
+	$result = mysql_query($sql) or record_mysql_error($sql);
+
+	echo '<p style="text-align: center; font-weight: bold;">'.mysql_affected_rows() . ' tracker(s) updated.</p>';
+}

@@ -144,6 +144,7 @@ if((!is_numeric($_POST['cpc_dollars'])) or (!is_numeric($_POST['cpc_cents']))) {
 	$mysql['click_cpc'] = mysql_real_escape_string($click_cpc);
 }
 
+$html['update_trackers'] = $_POST['update_trackers'] ? 'Yes' : 'No';
 
 //echo error
 echo $error['time'] . $error['user'];
@@ -212,6 +213,10 @@ if ($error) { die(); }  ?>
 	<tr>
 		<td class="left_caption">Updated CPC</td>
 		<td><? echo $html['click_cpc']; ?></td>
+	</tr>
+	<tr>
+		<td class="left_caption">Update CPC for Existing Links</td>
+		<td><? echo $html['update_trackers']; ?></td>
 	</tr>
 	<tr>
 		<td colspan="2"><p style="font-weight: bold; color: #900; text-align: center;">BE VERY SURE YOU WANT TO DO THIS!</td>
